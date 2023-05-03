@@ -32,11 +32,7 @@ class Dictionary {
     return data;
   }
 
-  Dictionary.fromMap(Map<String, String> map) {
-    wordId = map['word_id'];
-    wordTitle = map['word_title'];
-    wordDescription = map['word_description'];
-    category_id = map['category_id'];
-    category_title = map['category_title'];
+  Dictionary.toWord(Map<String, dynamic> json) {
+    wordTitle = json['word_title'];
   }
 }

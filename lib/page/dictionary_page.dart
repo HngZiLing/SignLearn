@@ -16,8 +16,7 @@ class _AZItem extends ISuspensionBean{
 }
 
 class DictionaryPage extends StatefulWidget {
-  // const DictionaryPage({Key? key, required this.items}) : super(key: key);
-  final List<String?> items;
+  final List<String> items;
   final ValueChanged<String> onClickedItem;
   const DictionaryPage({Key? key, required this.items, required this.onClickedItem}) : super(key: key);
   @override
@@ -25,19 +24,18 @@ class DictionaryPage extends StatefulWidget {
 }
 
 class _DictionaryPageState extends State<DictionaryPage> {
-  late List<Dictionary> dictionaryList = [];
+  List dictionaryList = [];
   String titlecenter = "Loading data";
   List<_AZItem> items = [];
 
   @override
   void initState(){
     super.initState();
-    // loadDictionary();
     initList(widget.items);
   }
 
-  void initList(List<String?> items){
-    this.items=dictionaryList.map((item)=>_AZItem(title:item.toString(), tag:item.toString()[0].toUpperCase())).toList();
+  void initList(List<String> items){
+    this.items=items.map((item)=>_AZItem(title:item, tag:item[0].toUpperCase())).toList();
 
     SuspensionUtil.sortListBySuspensionTag(this.items);
     SuspensionUtil.setShowSuspensionStatus(this.items);
