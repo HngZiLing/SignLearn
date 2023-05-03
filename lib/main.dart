@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:signlearn/model/dictionary.dart';
 import 'package:signlearn/page/dictionary_page.dart';
 import 'package:signlearn/page/profile_page.dart';
 import 'package:signlearn/page/category_page.dart';
-import '../model/category.dart';
+import 'dart:convert';
+import 'package:signlearn/config.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -14,19 +17,35 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
+List data = [];
+
 class _MainPageState extends State<MainPage> {
   int index = 0;
-  final pages = [
-    const CategoryPage(),
-    DictionaryPage(
-      onClickedItem: (item) {},
-      items: const ['One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten'],
-    ),
-    const ProfilePage()
-  ];
+   List <String?> dictionaryList = [];
+
+  @override
+  void initState(){
+    super.initState();
+    loadDictionary();
+  }
 
   @override
   Widget build(BuildContext context) {
+    ListView.builder(
+      itemCount: dictionaryList.length,
+      itemBuilder: (context, index){
+      dictionaryList = (data[index]["dictionary"] as List<Map<String, String>>).map((e) => e["word_title"]).toList();
+    },
+    );
+    
+    final pages = [
+    const CategoryPage(),
+    DictionaryPage(
+      onClickedItem: (item) {},
+      items: dictionaryList.toList()),
+    const ProfilePage()
+  ]; 
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('SignLearn'),
@@ -58,6 +77,36 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
+}
+  
+void loadDictionary(){
+  http.post(
+   Uri.parse(Config.server + "/signlearn/php/load_dictionary.php"),
+   body: {
+    }).then((response) {
+      var jsondata = jsonDecode(response.body);
+      // jsondata = List<Map<String, dynamic>>.from(jsonDecode(response.body));
+      if (response.statusCode == 200 && jsondata['status'] == 'success') {
+        var extractdata = jsondata['data'];
+        if (extractdata['dictionary'] != null) {
+          jsondata = List<Map<String, dynamic>>.from(jsonDecode(response.body));
+          extractdata = jsondata.map((m) => Dictionary.fromMap(Map<String, String>.from(m))).toList();
+          data = extractdata;
+          print("data" + extractdata);
+          // dictionaryList = extractdata.map<Dictionary>((json) => Dictionary.fromJson(json)).toList();
+          // extractdata['dictionary'].forEach((v) {
+          // dictionaryList.add(Dictionary.fromJson(v) as String);
+          // print(extractdata);
+          // });
+          // setState(() { });
+        }
+      } 
+    }).timeout(
+    const Duration(seconds: 60), 
+    onTimeout:(){
+      return;
+    },
+    );
 }
 
 class Palette { 

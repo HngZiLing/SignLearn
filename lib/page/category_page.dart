@@ -69,7 +69,6 @@ class _CategoryPageState extends State<CategoryPage> {
                       child : InkWell(
                         onTap : ()=> {
                           search = categoryList[index].category_id.toString(),
-                          print(search),
                           Navigator.push(context, MaterialPageRoute( 
                             builder: (content) => CategoryDetailsPage(category_title: categoryList[index].category_title.toString(), category_id : search)
                             ))
@@ -148,10 +147,16 @@ class _CategoryPageState extends State<CategoryPage> {
                           ],
                         ),
                       ),
-                    ),)
+                      
+                    ),
+                    )
+                     
                     );
+                   
                   },
+                  
                   ),
+                  
                 ),
               ),
               ),
@@ -161,7 +166,7 @@ class _CategoryPageState extends State<CategoryPage> {
     );
   }
 
-  void loadCategory() {
+  void loadCategory () {
     http.post(
       Uri.parse(Config.server + "/signlearn/php/load_category.php"),
     ).timeout(
@@ -182,7 +187,7 @@ class _CategoryPageState extends State<CategoryPage> {
         if (extractdata['category'] != null) {
           categoryList = <Category>[];
           extractdata['category'].forEach((v) {
-            categoryList.add(Category.fromJson(v));
+            categoryList.add(Category.fromJson(v)); 
           });
           setState(() {});
         }
@@ -192,27 +197,4 @@ class _CategoryPageState extends State<CategoryPage> {
       }
     });
   }
-
-  // void loadWord(index){
-  // http.post(
-  //  Uri.parse(Config.server + "/signlearn/php/load_word.php"),
-  //  body: {
-  //   'search': categoryList[index].category_id,
-  //   }).then((response) {
-  //     var jsondata = jsonDecode(response.body);
-  //     if (response.statusCode == 200 && jsondata['status'] == 'success') {
-  //       print(jsondata);
-  //       var extractdata = jsondata['data'];
-  //       if (extractdata['word'] != null) {
-  //         wordList = <Word>[];
-  //         extractdata['word'].forEach((v) {
-  //           wordList.add(Word.fromJson(v));
-  //         });
-  //         setState(() {});
-  //       }
-  //     } 
-  //   });
-  //   Navigator.push(context, MaterialPageRoute(
-  //     builder: (BuildContext content) => CategoryDetailsPage(category_id: search,)));
-  // }
 }

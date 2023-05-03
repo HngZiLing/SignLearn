@@ -1,14 +1,16 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/services.dart';
 import 'package:signlearn/model/word.dart';
+import 'package:signlearn/page/video_page.dart';
 import '../config.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:signlearn/page/category_word_page.dart';
 
 
 class CategoryDetailsPage extends StatefulWidget {
-  final String category_id;
-  final String category_title;
+  final String category_id, category_title;
   const CategoryDetailsPage({Key? key, required this.category_title, required this.category_id}) : super(key: key);
 
   @override
@@ -45,12 +47,12 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFFE6EBE0),
+        backgroundColor: const Color(0xFFF1F4F8),
         appBar: AppBar(
           backgroundColor: const Color(0xFFACD783),
           automaticallyImplyLeading: true,
           title: Text(widget.category_title.toString(),
-            style: TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold)
+            style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold, color: Colors.white)
           ),
           actions: [],
           centerTitle: true,
@@ -70,7 +72,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -137,7 +139,15 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                             child: Padding(
                               padding:
                                   const EdgeInsetsDirectional.fromSTEB(5, 0, 15, 5),
-                              child: ClipRRect(
+                              child: InkWell(
+                                onTap: ()=>{
+                                  Navigator.push(context, MaterialPageRoute( 
+                                    builder: (content) => VideoPage(category_title: widget.category_title.toString(), category_id : widget.category_id.toString())
+                                    )
+                                    ),
+                          },
+
+                                child: ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
                                 child: CachedNetworkImage(
                                   imageUrl: Config.server + "/signlearn/assets/video.jpg",
@@ -145,7 +155,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                                   height: 185.4,
                                   fit: BoxFit.fitWidth,
                                 ),
-                              ),
+                              ),),
                             ),
                           ),
                         ],
@@ -174,50 +184,56 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                 ],
               ),
               Expanded(
-                flex: 8,
+                flex: 7,
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(15, 0, 15, 15),
                   child:  GridView.count(
                     crossAxisCount: 3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
                     childAspectRatio: 1,
                     children: List.generate(wordList.length, (index) {
                       return InkWell(
-                        splashColor: Colors.blue,
-                        onTap: () => {loadWord(widget.category_id.toString())},
+                        splashColor: const Color(0xFFE6EBE0),
+                        onTap: () => {
+                          Navigator.push(context, MaterialPageRoute( 
+                            builder: (content) => 
+                            CategoryWordPage(
+                              id: wordList[index].wordId.toString(), 
+                              title: wordList[index].wordTitle.toString(), 
+                              description: wordList[index].wordDescription.toString(), 
+                              category: widget.category_id.toString()
+                            )
+                          ))
+                        },
                         child: Card(
-                    color: const Color.fromARGB(255, 214, 231, 245),
+                    color: const Color(0xFFE6EBE0),
                     shadowColor: Colors.blueGrey,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            Flexible(
-                              flex: 9, 
+                        const SizedBox(height: 10),
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
                               child: CachedNetworkImage(
                                 imageUrl: Config.server + "/signlearn/assets/c" + widget.category_id.toString() + "/" + wordList[index].wordId.toString() + '.png',
                                 fit: BoxFit.cover,
-                                width: resWidth -5,
-                                height: 50,
+                                width: resWidth -3,
+                                height: 100,
                                 alignment: Alignment.center,
                                 placeholder: (context, url) => const CircularProgressIndicator(),
                                 errorWidget: (context, url, error) => const Icon(Icons.error),
                               ),
-                            ),
-                          ]
+                          )
                         ),
-                        ListTile(
-                          title: Text(
-                            wordList[index].wordTitle.toString(), textAlign: TextAlign.center, 
-                            style: const TextStyle(fontSize: 20, fontFamily: 'Changa', color: Colors.indigo, height: 1.2)
+                          Text(
+                          wordList[index].wordTitle.toString(), textAlign: TextAlign.center, 
+                            style: const TextStyle(fontSize: 20, height: 1.2)
                           ),
-                        )
                       ],
                     )
                   )                 

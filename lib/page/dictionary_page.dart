@@ -1,7 +1,6 @@
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
-import 'package:signlearn/page/category_detail_page.dart';
-import '../model/category.dart';
+import '../model/dictionary.dart';
 
 class _AZItem extends ISuspensionBean{
   final String title;
@@ -16,9 +15,9 @@ class _AZItem extends ISuspensionBean{
   String getSuspensionTag()=>tag;
 }
 
-
 class DictionaryPage extends StatefulWidget {
-  final List<String> items;
+  // const DictionaryPage({Key? key, required this.items}) : super(key: key);
+  final List<String?> items;
   final ValueChanged<String> onClickedItem;
   const DictionaryPage({Key? key, required this.items, required this.onClickedItem}) : super(key: key);
   @override
@@ -26,18 +25,19 @@ class DictionaryPage extends StatefulWidget {
 }
 
 class _DictionaryPageState extends State<DictionaryPage> {
-  List numlist = [];
+  late List<Dictionary> dictionaryList = [];
   String titlecenter = "Loading data";
-  List<_AZItem> items=[];
-  
+  List<_AZItem> items = [];
+
   @override
   void initState(){
     super.initState();
+    // loadDictionary();
     initList(widget.items);
   }
 
-  void initList(List<String> items){
-    this.items=items.map((item)=>_AZItem(title:item, tag:item[0].toUpperCase())).toList();
+  void initList(List<String?> items){
+    this.items=dictionaryList.map((item)=>_AZItem(title:item.toString(), tag:item.toString()[0].toUpperCase())).toList();
 
     SuspensionUtil.sortListBySuspensionTag(this.items);
     SuspensionUtil.setShowSuspensionStatus(this.items);
@@ -115,4 +115,28 @@ class _DictionaryPageState extends State<DictionaryPage> {
       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
     ),
   );
+
+// void loadDictionary(){
+//   http.post(
+//    Uri.parse(Config.server + "/signlearn/php/load_dictionary.php"),
+//    body: {
+//     }).then((response) {
+//       var jsondata = jsonDecode(response.body);
+//       if (response.statusCode == 200 && jsondata['status'] == 'success') {
+//         var extractdata = jsondata['data'];
+//         if (extractdata['dictionary'] != null) {
+//           dictionaryList = <Dictionary>[];
+//           extractdata['dictionary'].forEach((v) {
+//           dictionaryList.add(Dictionary.fromJson(v));
+//           });
+//           setState(() { });
+//         }
+//       } 
+//     }).timeout(
+//     const Duration(seconds: 60), 
+//     onTimeout:(){
+//       return;
+//     },
+//     );
+// }
 }
