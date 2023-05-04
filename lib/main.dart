@@ -17,13 +17,12 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-
 class _MainPageState extends State<MainPage> {
   int index = 0;
-
-   List <String> dictionaryList = <String>[];
-   List <String> data = <String>[];
-   late List pages = [];
+  String name = "";
+  List <Dictionary> dictionaryList = <Dictionary>[];
+  List<String> dictionaryTitle= [];
+  late List pages = [];
 
   @override
   void initState(){
@@ -33,7 +32,7 @@ class _MainPageState extends State<MainPage> {
     const CategoryPage(),
     DictionaryPage(
       onClickedItem: (item) {},
-      items: dictionaryList),
+      items: dictionaryTitle),
     const ProfilePage()
     ]; 
   }
@@ -81,8 +80,11 @@ class _MainPageState extends State<MainPage> {
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
         var extractdata = jsondata['data'];
         if (extractdata['dictionary'] != null) {
-          extractdata['dictionary'].forEach((v) {
-            dictionaryList.add(Dictionary.toWord(v).toString());
+            dictionaryList = <Dictionary>[];
+            extractdata['dictionary'].forEach((v) {
+            dictionaryList.add(Dictionary.fromJson(v));
+            name = Dictionary.fromJson(v).wordTitle.toString();
+            dictionaryTitle.add(name);
           });
           setState(() { });
         }
