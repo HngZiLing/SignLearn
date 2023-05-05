@@ -1,6 +1,12 @@
+import 'dart:async';
+
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
-import '../model/dictionary.dart';
+import 'package:signlearn/page/category_word_page.dart';
+import '../model/word.dart';
+import 'dart:convert';
+import '../config.dart';
+import 'package:http/http.dart' as http;
 
 class _AZItem extends ISuspensionBean{
   final String title;
@@ -27,6 +33,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
   List dictionaryList = [];
   String titlecenter = "Loading data";
   List<_AZItem> items = [];
+  List<Word> wordList = <Word>[];
 
   @override
   void initState(){
@@ -92,9 +99,9 @@ class _DictionaryPageState extends State<DictionaryPage> {
           margin: const EdgeInsets.only(right: 16),
           child: ListTile(
             title: Text(item.title),
-            // onTap: () => Navigator.push(context, MaterialPageRoute(
-            //         builder: (content) => CategoryDetailPage()
-            //       ))
+            onTap: () => {
+              loadWord(item.title),
+            },
           ),
         ),
       ],
@@ -114,27 +121,36 @@ class _DictionaryPageState extends State<DictionaryPage> {
     ),
   );
 
-// void loadDictionary(){
-//   http.post(
-//    Uri.parse(Config.server + "/signlearn/php/load_dictionary.php"),
-//    body: {
-//     }).then((response) {
-//       var jsondata = jsonDecode(response.body);
-//       if (response.statusCode == 200 && jsondata['status'] == 'success') {
-//         var extractdata = jsondata['data'];
-//         if (extractdata['dictionary'] != null) {
-//           dictionaryList = <Dictionary>[];
-//           extractdata['dictionary'].forEach((v) {
-//           dictionaryList.add(Dictionary.fromJson(v));
-//           });
-//           setState(() { });
-//         }
-//       } 
-//     }).timeout(
-//     const Duration(seconds: 60), 
-//     onTimeout:(){
-//       return;
-//     },
-//     );
-// }
+  void loadWord(String search){
+    String id, description, category;
+    String title = search;
+  http.post(
+   Uri.parse(Config.server + "/signlearn/php/load_dictionary_word.php"),
+   body: {
+    'search' : title,
+    }).then((response) {
+      var jsondata = jsonDecode(response.body);
+      if (response.statusCode == 200 && jsondata['status'] == 'success') {
+        id = jsondata['data']['word_id'].toString();
+        title = jsondata['data']['word_title'].toString(); 
+        description = jsondata['data']['word_description'].toString();
+        category = jsondata['data']['category_id'].toString();
+
+        Navigator.push(context, MaterialPageRoute(
+          builder: (content) => 
+          CategoryWordPage(
+            id: id, 
+            title: title, 
+            description: description,
+            category: category
+            )
+            ));
+      }
+    }).timeout(
+    const Duration(seconds: 60), 
+    onTimeout:(){
+      return;
+    },
+    );
+  }
 }

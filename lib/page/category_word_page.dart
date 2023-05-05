@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:signlearn/config.dart';
+import '../model/word.dart';
 
 class CategoryWordPage extends StatefulWidget {
   final String id, title, description, category;
   const CategoryWordPage({Key? key, required this.id, required this.title, required this.description, required this.category}) : super(key: key);
+  
   @override
   State<CategoryWordPage> createState() => _CategoryWordPageState();
 }
@@ -12,10 +14,13 @@ class CategoryWordPage extends StatefulWidget {
 class _CategoryWordPageState extends State<CategoryWordPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
+  
+  String titleName = "";
 
   @override
   void initState() {
     super.initState();
+    titleName = widget.title.toString();
   }
 
   @override
@@ -23,6 +28,7 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
     _unfocusNode.dispose();
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
