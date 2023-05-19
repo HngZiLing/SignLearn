@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:signlearn/page/category_word_page.dart';

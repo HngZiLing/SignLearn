@@ -224,8 +224,8 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                                 width: resWidth -3,
                                 height: 100,
                                 alignment: Alignment.center,
-                                placeholder: (context, url) => const CircularProgressIndicator(),
-                                errorWidget: (context, url, error) => const Icon(Icons.error),
+                                // placeholder: (context, url) => const CircularProgressIndicator(),
+                                // errorWidget: (context, url, error) => const Icon(Icons.error),
                               ),
                           )
                         ),

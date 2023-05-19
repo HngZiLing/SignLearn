@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../model/video.dart';
 import 'package:http/http.dart' as http;
 import '../config.dart';
-
 
 
 class VideoPage extends StatefulWidget {
@@ -25,6 +25,7 @@ class _VideoPageState extends State<VideoPage> {
   late String? videoID = YoutubePlayer.convertUrlToId(videoUrl);
   List<Video> videoList = <Video>[];
   String titlecenter = "No video available...";
+  late InAppWebViewController webController;
 
   @override
   void initState() {
@@ -35,8 +36,14 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   void dispose() {
-    _unfocusNode.dispose();
+    youtubePlayerController.dispose();
     super.dispose();
+  }
+
+  @override
+  void deactivate(){
+    youtubePlayerController.pause();
+    super.deactivate();
   }
 
   @override
@@ -74,21 +81,39 @@ class _VideoPageState extends State<VideoPage> {
                       videoList.length,(index) {
                         videoUrl = "https://www.youtube.com/watch?v=" + videoList[index].video_url.toString();
                         videoID = YoutubePlayer.convertUrlToId(videoUrl);
+                        children: [
+                          
+                          InAppWebView(
+                            initialUrlRequest: URLRequest(
+                              url: Uri.parse(videoUrl.toString())),
+                              onWebViewCreated: (InAppWebViewController controller) {
+                                webController = controller;
+                              },
+                              androidOnPermissionRequest: (InAppWebViewController controller, String origin, List<String> resources) async {
+                                return PermissionRequestResponse(
+                  resources: resources,
+                  action: PermissionRequestResponseAction.GRANT,);
+
+                              })
+                        ];
                         youtubePlayerController = YoutubePlayerController(
                           initialVideoId: videoID!,
                           flags: const YoutubePlayerFlags(
+                            enableCaption: false,
+                            isLive: false,
                             autoPlay: false,
                             mute: false,
                             disableDragSeek: false,
                             loop: false,
-                            isLive: false,
                             forceHD: false,
                             ));
+                            // String videoId = videoList[index].video_id.toString();
+
                         return SingleChildScrollView(
                           child: InkWell(
+                            
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                              // child: Expanded(
                                 child: Column(
                                   children: [
                                     YoutubePlayer(
@@ -109,14 +134,10 @@ class _VideoPageState extends State<VideoPage> {
                       SizedBox(height: 10),
                       const Divider(thickness: 2,)
                       ],
-                                  
-                                )
-                                
-                      // )
-                      
-                          ),)
+                       )
+                       )
+                          )
                         );
-                        
                       }),
                     )  
                   ),

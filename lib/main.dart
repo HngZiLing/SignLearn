@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:signlearn/model/dictionary.dart';
 import 'package:signlearn/page/dictionary_page.dart';
 import 'package:signlearn/page/profile_page.dart';
@@ -7,9 +8,18 @@ import 'dart:convert';
 import 'package:signlearn/config.dart';
 import 'package:http/http.dart' as http;
 
-void main() {
-  runApp(const MyApp());
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Permission.camera.request();
+  await Permission.microphone.request();
+
+  runApp(MyApp());
 }
+
+// void main() {
+//   runApp(const MyApp());
+// }
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key, required String title}):super(key: key);
