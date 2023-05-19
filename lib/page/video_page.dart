@@ -21,7 +21,6 @@ class _VideoPageState extends State<VideoPage> {
   late String videoUrl = "https://www.youtube.com/watch?v=betAZeKRpR8";
   // late String videoUrl = "";
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
   late String? videoID = YoutubePlayer.convertUrlToId(videoUrl);
   List<Video> videoList = <Video>[];
   String titlecenter = "No video available...";
@@ -81,9 +80,7 @@ class _VideoPageState extends State<VideoPage> {
                       videoList.length,(index) {
                         videoUrl = "https://www.youtube.com/watch?v=" + videoList[index].video_url.toString();
                         videoID = YoutubePlayer.convertUrlToId(videoUrl);
-                        children: [
-                          
-                          InAppWebView(
+                        InAppWebView(
                             initialUrlRequest: URLRequest(
                               url: Uri.parse(videoUrl.toString())),
                               onWebViewCreated: (InAppWebViewController controller) {
@@ -94,8 +91,7 @@ class _VideoPageState extends State<VideoPage> {
                   resources: resources,
                   action: PermissionRequestResponseAction.GRANT,);
 
-                              })
-                        ];
+                        });
                         youtubePlayerController = YoutubePlayerController(
                           initialVideoId: videoID!,
                           flags: const YoutubePlayerFlags(

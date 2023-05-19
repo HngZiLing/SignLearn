@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:signlearn/config.dart';
 import 'package:http/http.dart' as http;
-import 'package:signlearn/model/word.dart';
 import 'package:signlearn/page/category_detail_page.dart';
 import '../model/category.dart';
 
@@ -36,8 +35,6 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    
-    Word word;
     return Scaffold(
       key: scaffoldKey,
       body: categoryList.isEmpty ? 

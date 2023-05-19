@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:signlearn/config.dart';
-import '../model/word.dart';
 
 class CategoryWordPage extends StatefulWidget {
   final String id, title, description, category;
