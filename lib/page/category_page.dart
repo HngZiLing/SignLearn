@@ -178,7 +178,9 @@ class _CategoryPageState extends State<CategoryPage> {
         return http.Response('Error', 408); // Request Timeout response status code
       },
     ).then((response) {
-      var jsondata = jsonDecode(response.body);
+      String jsonDataString = response.body.toString();
+      var jsondata = jsonDecode(jsonDataString);
+      // var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
         var extractdata = jsondata['data'];
         if (extractdata['category'] != null) {
