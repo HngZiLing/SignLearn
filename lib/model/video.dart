@@ -1,30 +1,30 @@
 class Video {
-  String? video_id;
-  String? video_title;
-  String? video_url;
-  String? category_id;
+  String? videoId;
+  String? videoTitle;
+  String? videoUrl;
+  String? categoryId;
 
   Video(
-    { this.video_id,
-      this.video_title,
-      this.video_url,
-      this.category_id,
+    { this.videoId,
+      this.videoTitle,
+      this.videoUrl,
+      this.categoryId,
     }
   );
 
   Video.fromJson(Map<String, dynamic> json) {
-    video_id = json['video_id'];
-    video_title = json['video_title'];
-    video_url = json['video_url'];
-    category_id = json['category_id'];
+    videoId = json['video_id'];
+    videoTitle = json['video_title'];
+    videoUrl = json['video_url'];
+    categoryId = json['category_id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['video_id'] = video_id;
-    data['video_title'] = video_title;
-    data['video_url'] = video_url;
-    data['category_id'] = category_id;
+    data['video_id'] = videoId;
+    data['video_title'] = videoTitle;
+    data['video_url'] = videoUrl;
+    data['category_id'] = categoryId;
     return data;
   }
 }

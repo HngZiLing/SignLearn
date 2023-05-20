@@ -41,7 +41,7 @@ class _DictionaryWordPageState extends State<DictionaryWordPage> {
           title: Text(widget.title.toString(),
             style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold, color: Colors.white)
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 5,
         ),
@@ -112,9 +112,9 @@ class _DictionaryWordPageState extends State<DictionaryWordPage> {
                         alignment: const AlignmentDirectional(-1, 0),
                         child: Padding(
                           padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 0, 10, 10),
+                              const EdgeInsetsDirectional.fromSTEB(20, 0, 10, 10),
                           child: Text(
-                            'Category : ' + widget.categoryName.toString(),
+                            'Category : ${widget.categoryName}',
                             textAlign: TextAlign.start,
                             style: const TextStyle(fontSize: 20, height: 1.2)
                           ),
@@ -143,9 +143,9 @@ class _DictionaryWordPageState extends State<DictionaryWordPage> {
     );
   }
   
-  void addToFavourite(String word_id) {
+  void addToFavourite(String wordId) {
     http.post(
-      Uri.parse(Config.server + "/signlearn/php/add_to_favourite.php"),
+      Uri.parse("${Config.server}/signlearn/php/add_to_favourite.php"),
       body: {
         "word_id" : widget.id.toString(),
         "word_title" : widget.title.toString(),

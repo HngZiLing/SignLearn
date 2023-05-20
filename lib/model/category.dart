@@ -1,26 +1,26 @@
 class Category {
-  String? category_id;
-  String? category_title;
-  String? category_description;
+  String? categoryId;
+  String? categoryTitle;
+  String? categoryDescription;
 
   Category(
-    { this.category_id,
-      this.category_title,
-      this.category_description,
+    { this.categoryId,
+      this.categoryTitle,
+      this.categoryDescription,
     }
   );
 
   Category.fromJson(Map<String, dynamic> json) {
-    category_id = json['category_id'];
-    category_title = json['category_title'];
-    category_description = json['category_description'];
+    categoryId = json['category_id'];
+    categoryTitle = json['category_title'];
+    categoryDescription = json['category_description'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['category_id'] = category_id;
-    data['category_title'] = category_title;
-    data['category_description'] = category_description;
+    data['category_id'] = categoryId;
+    data['category_title'] = categoryTitle;
+    data['category_description'] = categoryDescription;
     return data;
   }
 }

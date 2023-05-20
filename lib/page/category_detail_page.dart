@@ -9,8 +9,8 @@ import 'package:signlearn/page/category_word_page.dart';
 
 
 class CategoryDetailsPage extends StatefulWidget {
-  final String category_id, category_title;
-  const CategoryDetailsPage({Key? key, required this.category_title, required this.category_id}) : super(key: key);
+  final String categoryId, categoryTitle;
+  const CategoryDetailsPage({Key? key, required this.categoryTitle, required this.categoryId}) : super(key: key);
 
   @override
   State<CategoryDetailsPage> createState() => _CategoryDetailsPageState();
@@ -20,7 +20,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
 @override
   void initState() {
     super.initState();
-    loadWord(widget.category_id.toString());
+    loadWord(widget.categoryId.toString());
   }
 
   @override
@@ -50,10 +50,10 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
         appBar: AppBar(
           backgroundColor: const Color(0xFFACD783),
           automaticallyImplyLeading: true,
-          title: Text(widget.category_title.toString(),
+          title: Text(widget.categoryTitle.toString(),
             style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold, color: Colors.white)
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 5,
         ),
@@ -141,7 +141,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                               child: InkWell(
                                 onTap: ()=>{
                                   Navigator.push(context, MaterialPageRoute( 
-                                    builder: (content) => VideoPage(category_title: widget.category_title.toString(), category_id : widget.category_id.toString())
+                                    builder: (content) => VideoPage(categoryTitle: widget.categoryTitle.toString(), categoryId : widget.categoryId.toString())
                                     )
                                     ),
                           },
@@ -163,9 +163,9 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                   ],
                 ),
               ),
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
-                children: const [
+                children: [
                   Expanded(
                     flex: 3,
                     child: Align(
@@ -201,7 +201,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                               id: wordList[index].wordId.toString(), 
                               title: wordList[index].wordTitle.toString(), 
                               description: wordList[index].wordDescription.toString(), 
-                              category: widget.category_id.toString()
+                              category: widget.categoryId.toString()
                             )
                           ))
                         },
@@ -219,7 +219,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                               child: CachedNetworkImage(
-                                imageUrl: Config.server + "/signlearn/assets/c" + widget.category_id.toString() + "/" + wordList[index].wordId.toString() + '.png',
+                                imageUrl: Config.server + "/signlearn/assets/c" + widget.categoryId.toString() + "/" + wordList[index].wordId.toString() + '.png',
                                 fit: BoxFit.cover,
                                 width: resWidth -3,
                                 height: 100,

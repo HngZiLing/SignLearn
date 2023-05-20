@@ -62,7 +62,7 @@ class OptionWidget extends StatelessWidget {
     }) : super (key:key);
 
     @override
-    Widget build(BuildContext context) => SingleChildScrollView(
+    Widget build(BuildContext context) => const SingleChildScrollView(
       child: Column(
         // children: question.options.map((e) => buildOption(context, option)).toList()
       )

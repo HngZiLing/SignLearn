@@ -50,9 +50,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Row(
+                          const Row(
                             mainAxisSize: MainAxisSize.max,
-                            children: const [
+                            children: [
                               Expanded(
                                 flex: 8,
                                 child: Align(
@@ -113,15 +113,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                             fit: BoxFit.fitHeight,
                                           ),
                                         ),
-                                        Expanded(
+                                        const Expanded(
                                           flex: 3,
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     10, 0, 10, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              children: const [
+                                              children: [
                                                 Expanded(
                                                   flex: 8,
                                                   child: Text(
@@ -174,15 +174,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                             ),
                                           ),
                                         ),
-                                        Expanded(
+                                        const Expanded(
                                           flex: 3,
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     10, 0, 10, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              children: const [
+                                              children: [
                                                 Expanded(
                                                   flex: 8,
                                                   child: Text(
@@ -232,15 +232,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                             fit: BoxFit.fitHeight,
                                           ),
                                         ),
-                                        Expanded(
+                                        const Expanded(
                                           flex: 3,
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     10, 0, 10, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              children: const [
+                                              children: [
                                                 Expanded(
                                                   flex: 8,
                                                   child: Text(

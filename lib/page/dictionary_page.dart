@@ -123,7 +123,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
     String id, description, category;
     String title = search;
   http.post(
-   Uri.parse(Config.server + "/signlearn/php/load_dictionary_word.php"),
+   Uri.parse("${Config.server}/signlearn/php/load_dictionary_word.php"),
    body: {
     'search' : title,
     }).then((response) {

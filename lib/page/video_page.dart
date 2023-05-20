@@ -8,9 +8,9 @@ import '../config.dart';
 
 
 class VideoPage extends StatefulWidget {
-  final String category_title, category_id;
+  final String categoryTitle, categoryId;
   
-  const VideoPage({Key? key, required this.category_title, required this.category_id}) : super(key: key);
+  const VideoPage({Key? key, required this.categoryTitle, required this.categoryId}) : super(key: key);
 
   @override
   State<VideoPage> createState() => _VideoPageState();
@@ -28,7 +28,7 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   void initState() {
-      loadVideo(widget.category_id.toString());
+      loadVideo(widget.categoryId.toString());
     super.initState();
     
   }
@@ -53,10 +53,10 @@ class _VideoPageState extends State<VideoPage> {
           appBar: AppBar(
           backgroundColor: const Color(0xFFACD783),
           automaticallyImplyLeading: true,
-          title: Text(widget.category_title.toString(),
+          title: Text(widget.categoryTitle.toString(),
             style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold, color: Colors.white)
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 5,
         ),
@@ -78,7 +78,7 @@ class _VideoPageState extends State<VideoPage> {
                     child: ListView(
                       children: List.generate(
                       videoList.length,(index) {
-                        videoUrl = "https://www.youtube.com/watch?v=" + videoList[index].video_url.toString();
+                        videoUrl = "https://www.youtube.com/watch?v=${videoList[index].videoUrl}";
                         videoID = YoutubePlayer.convertUrlToId(videoUrl);
                         InAppWebView(
                             initialUrlRequest: URLRequest(
@@ -127,7 +127,7 @@ class _VideoPageState extends State<VideoPage> {
                         const PlaybackSpeedButton(),
                       ]
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       const Divider(thickness: 2,)
                       ],
                        )
@@ -147,7 +147,7 @@ class _VideoPageState extends State<VideoPage> {
 
   void loadVideo(String search){
   http.post(
-   Uri.parse(Config.server + "/signlearn/php/load_video.php"),
+   Uri.parse("${Config.server}/signlearn/php/load_video.php"),
    body: {
     'search' : search
     }).then((response) {

@@ -65,9 +65,9 @@ class _CategoryPageState extends State<CategoryPage> {
                     return SingleChildScrollView(
                       child : InkWell(
                         onTap : ()=> {
-                          search = categoryList[index].category_id.toString(),
+                          search = categoryList[index].categoryId.toString(),
                           Navigator.push(context, MaterialPageRoute( 
-                            builder: (content) => CategoryDetailsPage(category_title: categoryList[index].category_title.toString(), category_id : search)
+                            builder: (content) => CategoryDetailsPage(categoryTitle: categoryList[index].categoryTitle.toString(), categoryId : search)
                             ))
                           },
                         child : Padding(
@@ -94,7 +94,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                     shape: BoxShape.circle,
                                   ),
                                   child: CachedNetworkImage(
-                                    imageUrl: Config.server + "/signlearn/assets/category/C" + categoryList[index].category_id.toString() + ".jpg",
+                                    imageUrl: Config.server + "/signlearn/assets/category/C" + categoryList[index].categoryId.toString() + ".jpg",
                                     fit: BoxFit.contain,
                                   ),
                                 ),
@@ -109,9 +109,9 @@ class _CategoryPageState extends State<CategoryPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                                       child: 
-                                      Text(categoryList[index].category_title.toString(),
+                                      Text(categoryList[index].categoryTitle.toString(),
                                         textAlign: TextAlign.start,
                                         style : const TextStyle(
                                           fontFamily: 'Poppins',
@@ -128,7 +128,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                                         child:
-                                          Text(categoryList[index].category_description.toString(),
+                                          Text(categoryList[index].categoryDescription.toString(),
                                           maxLines: 2,
                                           style: const TextStyle(
                                                 fontFamily: 'Poppins',
@@ -178,7 +178,6 @@ class _CategoryPageState extends State<CategoryPage> {
         return http.Response('Error', 408); // Request Timeout response status code
       },
     ).then((response) {
-      print(response.body);
       var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
         var extractdata = jsondata['data'];

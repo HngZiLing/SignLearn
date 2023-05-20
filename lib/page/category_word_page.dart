@@ -42,7 +42,7 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
           title: Text(widget.id.toString(),
             style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold, color: Colors.white)
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 5,
         ),

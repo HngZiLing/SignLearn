@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
+// import 'package:permission_handler/permission_handler.dart';
 import 'package:signlearn/model/dictionary.dart';
 import 'package:signlearn/page/dictionary_page.dart';
 import 'package:signlearn/page/profile_page.dart';
@@ -7,14 +7,10 @@ import 'package:signlearn/page/category_page.dart';
 import 'dart:convert';
 import 'package:signlearn/config.dart';
 import 'package:http/http.dart' as http;
+// import 'dart:async';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await Permission.camera.request();
-  await Permission.microphone.request();
-
-  runApp(MyApp());
+void main() {
+  runApp(const MyApp());
 }
 
 class MainPage extends StatefulWidget {
@@ -80,7 +76,7 @@ class _MainPageState extends State<MainPage> {
 
   void loadDictionary(){
   http.post(
-   Uri.parse(Config.server + "/signlearn/php/load_dictionary.php")
+   Uri.parse("${Config.server}/signlearn/php/load_dictionary.php")
   ).then((response) {
       var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {

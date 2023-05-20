@@ -2,15 +2,15 @@ class Dictionary {
   String? wordId;
   String? wordTitle;
   String? wordDescription;
-  String? category_id;
-  String? category_title;
+  String? categoryId;
+  String? categoryTitle;
 
   Dictionary(
     { this.wordId,
       this.wordTitle,
       this.wordDescription,
-      this.category_id,
-      this.category_title,
+      this.categoryId,
+      this.categoryTitle,
     }
   );
 
@@ -18,8 +18,8 @@ class Dictionary {
     wordId = json['word_id'];
     wordTitle = json['word_title'];
     wordDescription = json['word_description'];
-    category_id = json['category_id'];
-    category_title = json['category_title'];
+    categoryId = json['category_id'];
+    categoryTitle = json['category_title'];
     
   }
 
@@ -28,8 +28,8 @@ class Dictionary {
     data['word_id'] = wordId;
     data['word_title'] = wordTitle;
     data['word_description'] = wordDescription;
-    data['category_id'] = category_id;
-    data['category_title'] = category_title;
+    data['category_id'] = categoryId;
+    data['category_title'] = categoryTitle;
     return data;
   }
 }

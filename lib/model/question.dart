@@ -24,7 +24,7 @@ class Option{
 
 final questions = [
   Question(
-    text: "What does this sign language mean？",
+    text: "Which of the following describes the sign language in the above image?",
     options: [
       const Option(text: 'One', isCorrect: false),
       const Option(text: 'Two', isCorrect: false),
@@ -33,7 +33,7 @@ final questions = [
     ],
   ),
   Question(
-    text: "What does this sign language mean？",
+    text: "Which of the following describes the sign language in the above image?",
     options: [
       const Option(text: 'Four', isCorrect: false),
       const Option(text: 'Five', isCorrect: false),
@@ -42,7 +42,7 @@ final questions = [
     ],
   ),
   Question(
-    text: "What does this sign language mean？",
+    text: "Which of the following describes the sign language in the above image?",
     options: [
       const Option(text: 'Seven', isCorrect: false),
       const Option(text: 'Eight', isCorrect: false),
