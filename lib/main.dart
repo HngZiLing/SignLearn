@@ -17,10 +17,6 @@ Future main() async {
   runApp(MyApp());
 }
 
-// void main() {
-//   runApp(const MyApp());
-// }
-
 class MainPage extends StatefulWidget {
   const MainPage({Key? key, required String title}):super(key: key);
   @override
