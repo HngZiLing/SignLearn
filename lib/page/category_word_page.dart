@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:signlearn/config.dart';
+import 'package:signlearn/favourite_provider.dart';
+import 'package:signlearn/model/word.dart';
 
 class CategoryWordPage extends StatefulWidget {
   final String id, title, description, category;
@@ -11,6 +14,7 @@ class CategoryWordPage extends StatefulWidget {
 }
 
 class _CategoryWordPageState extends State<CategoryWordPage> {
+  List<Word> favourite = [];
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
   
@@ -31,6 +35,7 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<FavouriteProvider>(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -87,11 +92,23 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
                         child: Padding(
                           padding:
                               const EdgeInsetsDirectional.fromSTEB(20, 30, 10, 5),
-                          child: Text(
+                          child: ListTile(
+                            title: Text(
                             widget.title.toString(),
                             style: 
                             const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold)
                           ),
+                          trailing: IconButton(
+                            onPressed: () {
+                              provider.toggleFavourite(widget.title);
+                            },
+                            icon: provider.isExist(widget.title)
+                            ? const Icon(
+                              Icons.favorite,
+                              color: Colors.red)
+                            : const Icon(Icons.favorite_border),
+                          ),
+                          )
                         ),
                       ),
                       Align(

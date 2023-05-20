@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:signlearn/favourite_provider.dart';
 // import 'package:permission_handler/permission_handler.dart';
 import 'package:signlearn/model/dictionary.dart';
 import 'package:signlearn/page/dictionary_page.dart';
-import 'package:signlearn/page/profile_page.dart';
+import 'package:signlearn/page/Favourite_page.dart';
 import 'package:signlearn/page/category_page.dart';
 import 'dart:convert';
 import 'package:signlearn/config.dart';
@@ -35,7 +37,7 @@ class _MainPageState extends State<MainPage> {
     DictionaryPage(
       onClickedItem: (item) {},
       items: dictionaryTitle),
-    const ProfilePage()
+    const FavouritePage()
     ]; 
   }
 
@@ -123,13 +125,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider(
+      create: (context) => FavouriteProvider(),
+      child: MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Palette.kToDark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const MainPage(title: 'SignLearn'),
+    )
     );
   }
 }
