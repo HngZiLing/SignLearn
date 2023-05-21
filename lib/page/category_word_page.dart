@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,7 @@ class CategoryWordPage extends StatefulWidget {
 }
 
 class _CategoryWordPageState extends State<CategoryWordPage> {
+  int index = 0;
   List<Word> favourite = [];
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
@@ -44,7 +47,7 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
         appBar: AppBar(
           backgroundColor: const Color(0xFFACD783),
           automaticallyImplyLeading: true,
-          title: Text(widget.id.toString(),
+          title: Text(widget.title.toString(),
             style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold, color: Colors.white)
           ),
           actions: const [],
@@ -133,4 +136,28 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
       ),
     );
   }
+
+  // void addToFavourite(String wordId) {
+  //   http.post(
+  //     Uri.parse("${Config.server}/signlearn/php/add_to_favourite.php"),
+  //     body: {
+  //       "word_id" : widget.id.toString(),
+  //       "word_title" : widget.title.toString(),
+  //       "word_description" : widget.description.toString(),
+  //       "category_id" : widget.category.toString(),
+  //     }
+  //   ).timeout(
+  //     const Duration(seconds: 5),
+  //     onTimeout: () {
+  //       return http.Response(
+  //         'Error', 408
+  //       );
+  //     }
+  //   ).then((response) {
+  //     var jsondata = jsonDecode(response.body);
+  //     if (response.statusCode == 200 && jsondata['status'] == 'success') {
+  //       setState(() {});
+  //     }
+  //   });
+  // }
 }

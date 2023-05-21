@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../config.dart';
@@ -21,13 +20,21 @@ class _FavouritePageState extends State<FavouritePage> {
     final words = provider.getWord;
     
     return Scaffold(
-      body: ListView.builder( 
+      body: SafeArea(
+        child: 
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: ListView.builder( 
       itemCount: words.length,
       itemBuilder: (context, index) {
         final word = words[index];
         loadWord(word);
         return ListTile(
-          leading: CachedNetworkImage(imageUrl: Config.server + "/signlearn/assets/c" + category + "/" + id + '.png'),
+          leading: CircleAvatar(
+          backgroundImage: NetworkImage(Config.server + "/signlearn/assets/c" + category + "/" + id + '.png'),
+        ),
           title: Text(word),
           trailing: IconButton(
             onPressed: () {
@@ -39,7 +46,10 @@ class _FavouritePageState extends State<FavouritePage> {
           ),
         );
       })
-
+              )
+            ]
+          )
+      )
     );
   }
 
@@ -56,7 +66,7 @@ class _FavouritePageState extends State<FavouritePage> {
         title = jsondata['data']['word_title'].toString(); 
         description = jsondata['data']['word_description'].toString();
         category = jsondata['data']['category_id'].toString();
-
+        setState(() {});
         // Navigator.push(context, MaterialPageRoute(
         //   builder: (content) => 
         //   CategoryWordPage(

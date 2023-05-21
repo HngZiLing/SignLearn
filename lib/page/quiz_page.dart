@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:signlearn/model/question.dart';
 
@@ -23,30 +24,131 @@ class _QuizPageState extends State<QuizPage>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      body:  Padding (
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          const SizedBox(height: 32),
-          Text('Question $questionNumber/${questions.length}'),
-          const Divider(thickness: 1, color: Colors.grey),
-          Expanded(
-            child: PageView.builder(
-              itemCount: questions.length,
-              controller: pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                final question = questions[index];
-                return buildQuestion(question);
-              },
-            )
-            ),
-            isLocked ? buildElevatedButton() : const SizedBox.shrink(),
-            const SizedBox(height: 20)
-        ],
-      ))
-    );
+      // body: Stack(
+      //   children: [
+      //     SafeArea(
+      //       child: Padding(
+      //         padding: const EdgeInsets.symmetric(horizontal: 20),
+      //         child: Column(
+      //           crossAxisAlignment: CrossAxisAlignment.start,
+      //           children: [
+      //             const Spacer(flex:2),
+      //             Text(
+      //               "Let's Play Quiz",
+      //               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+      //                 color: Colors.blue, fontWeight: FontWeight.bold
+      //               ),),
+      //               const Spacer(),
+      //               InkWell(
+      //                 onTap: () {Navigator.push(context, MaterialPageRoute(builder: (content) => 
+      //                 Scaffold(
+                        body:  Padding (
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              const SizedBox(height: 32),
+                              Text('Question $questionNumber/${questions.length}'),
+                              const Divider(thickness: 1, color: Colors.grey),
+                              Expanded(
+                                flex: 8,
+                                child: PageView.builder(
+                                  itemCount: questions.length,
+                                  controller: pageController,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    final question = questions[index];
+                                    return buildQuestion(question);
+                                  },
+                                )
+                              ),
+                              isLocked ? buildElevatedButton() : const SizedBox.shrink(),
+                              const SizedBox(height: 20)
+                            ],
+                          )
+                        )
+                      );
+
+                        // Scaffold(
+                        //   body: Stack(
+                        //     children: [
+                        //       SafeArea(
+                        //         child: Padding(
+                        //           padding: const EdgeInsets.symmetric(horizontal: 50),
+                        //           child: Column(
+                        //             children: [
+                        //               Container(
+                        //                 width: double.infinity,
+                        //                 height: 35,
+                        //                 decoration: BoxDecoration(
+                        //                   border: Border.all(color: Color(0xFF3F4768), width: 3),
+                        //                   borderRadius: BorderRadius.circular(50),
+                        //                 ),
+                        //                 child: Stack(
+                        //                   children: [
+                        //                     LayoutBuilder(
+                        //                       builder: (context, constraints) => Container(
+                        //                         width: constraints.maxWidth * 0.5,
+                        //                         decoration: BoxDecoration(
+                        //                           gradient: const LinearGradient(
+                        //                             colors: [Color(0xFF46A0AE), Color(0xFF00FFCB)],
+                        //                             begin: Alignment.centerLeft,
+                        //                             end: Alignment.centerRight
+                        //                           ),
+                        //                           borderRadius: BorderRadius.circular(50),
+                        //                         ),
+                        //                       )
+                        //                     ),
+                        //                     Positioned.fill(
+                        //                       child: Padding(
+                        //                         padding: const EdgeInsets.symmetric(horizontal: 10),
+                        //                         child: Row(
+                        //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //                           children: [
+                        //                             Text("18 sec")
+                        //                           ]
+                        //                         ),
+                        //                       )
+                        //                     )
+                        //                   ],
+                        //                 )
+                        //               )
+                        //             ]
+                        //           ),
+                        //         )
+                        //       )
+                        //     ],
+                        //   )
+                        // )
+      //                 )); },
+      //                 child: Container(
+      //                   width: double.infinity,
+      //                   alignment: Alignment.center,
+      //                   padding: const EdgeInsets.all(15),
+      //                   decoration: const BoxDecoration(
+      //                     gradient: LinearGradient(
+      //                       colors: [Color(0xFF46A0AE), Color(0xFF00FFCB)],
+      //                       begin: Alignment.centerLeft,
+      //                       end: Alignment.centerRight
+      //                     ),
+      //                     borderRadius: BorderRadius.all(Radius.circular(12)),
+      //                   ),
+      //                   child: Text(
+      //                     "Lets Start Quiz",
+      //                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+      //                       color: Colors.black
+      //                     ),
+      //                   ),
+      //                 ),
+      //               ),
+      //               const Spacer(flex:2)
+      //           ],
+      //         ),
+      //       )
+      //     )
+      //   ],
+      // ),
+    // );
    
   }
 
@@ -54,11 +156,20 @@ class _QuizPageState extends State<QuizPage>{
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 32),
-        Text(question.text,
-        style: const TextStyle(fontSize: 25)),
-        const SizedBox(height: 32),
         Expanded(
+          flex: 3,
+          child: CachedNetworkImage(
+            imageUrl: question.image,
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Text(question.text, 
+            style: const TextStyle(fontSize: 25)
+          )
+        ),
+        Expanded(
+          flex: 5,
           child: OptionWidget(
             question: question,
             onClickedOption: (option) {
@@ -74,7 +185,9 @@ class _QuizPageState extends State<QuizPage>{
                   score++;
                 }
               }
-            }))
+            }
+          )
+        )
       ],
     );
   }
@@ -190,3 +303,147 @@ class OptionWidget extends StatelessWidget {
       );
     }
   }
+
+  // class  extends StatelessWidget {
+  //     @override
+  //     Widget build(BuildContext context) { {
+  //   }
+  // }
+
+// class QuizPage extends StatefulWidget {
+//   final String categoryTitle, categoryId;
+//   const QuizPage({Key? key, required this.categoryTitle, required this.categoryId}) : super(key: key);
+
+//   @override
+//   State<QuizPage> createState() => _QuizPageState();
+// }
+
+// class _QuizPageState extends State<QuizPage> {
+//   // final scaffoldKey = GlobalKey<ScaffoldState>();
+//   // final _unfocusNode = FocusNode();
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     // _model = createModel(context, () => QuizPageModel());
+//   }
+
+//   @override
+//   void dispose() {
+//     // _model.dispose();
+
+//     // _unfocusNode.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       // onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+//       child: Scaffold(
+//         // key: scaffoldKey,
+//         // backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+//         appBar: AppBar(
+//           backgroundColor: Color(0xFFACD783),
+//           automaticallyImplyLeading: true,
+//           title: Text(
+//             widget.categoryTitle,
+//             style: const TextStyle(
+//                   fontFamily: 'Montserrat',
+//                   color: Colors.white,
+//                   fontSize: 25,
+//                 ),
+//           ),
+//           actions: [],
+//           centerTitle: true,
+//           elevation: 5,
+//         ),
+//         body: SafeArea(
+//           top: true,
+//           child: Column(
+//             mainAxisSize: MainAxisSize.max,
+//             children: [
+//               Padding(
+//                 padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+//                 child: Image.network(
+//                   'https://media.baamboozle.com/uploads/images/190665/1608397480_137653',
+//                   width: 404.2,
+//                   height: 300,
+//                   fit: BoxFit.fitHeight,
+//                 ),
+//               ),
+//               Align(
+//                 alignment: AlignmentDirectional(-1, 0),
+//                 child: Padding(
+//                   padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10),
+//                   child: Text(
+//                     'What is the ASL alphabet sign?',
+//                     style: FlutterFlowTheme.of(context).bodyMedium.override(
+//                           fontFamily: 'Poppins',
+//                           fontSize: 20,
+//                         ),
+//                   ),
+//                 ),
+//               ),
+//               Align(
+//                 alignment: AlignmentDirectional(-1, 0),
+//                 child: Padding(
+//                   padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10),
+//                   child: FlutterFlowRadioButton(
+//                     options: ['M', 'N', 'A', 'E'].toList(),
+//                     onChanged: (val) => setState(() {}),
+//                     controller: _model.radioButtonValueController ??=
+//                         FormFieldController<String>(null),
+//                     optionHeight: 50,
+//                     textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+//                           fontFamily: 'Poppins',
+//                           color: Colors.black,
+//                         ),
+//                     buttonPosition: RadioButtonPosition.left,
+//                     direction: Axis.vertical,
+//                     radioButtonColor: Color(0xFFACD783),
+//                     inactiveRadioButtonColor: Color(0xFF8E8E8E),
+//                     toggleable: false,
+//                     horizontalAlignment: WrapAlignment.start,
+//                     verticalAlignment: WrapCrossAlignment.start,
+//                   ),
+//                 ),
+//               ),
+//               Align(
+//                 alignment: AlignmentDirectional(0, 0),
+//                 child: FFButtonWidget(
+//                   onPressed: () {
+//                     print('Button pressed ...');
+//                   },
+//                   text: 'Next',
+//                   icon: Icon(
+//                     Icons.arrow_right_alt,
+//                     size: 30,
+//                   ),
+//                   options: FFButtonOptions(
+//                     width: 130,
+//                     height: 50,
+//                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+//                     iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+//                     color: Color(0xFFACD783),
+//                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+//                           fontFamily: 'Poppins',
+//                           color: Colors.white,
+//                           fontSize: 20,
+//                         ),
+//                     elevation: 2,
+//                     borderSide: BorderSide(
+//                       color: Colors.transparent,
+//                       width: 1,
+//                     ),
+//                     borderRadius: BorderRadius.circular(10),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

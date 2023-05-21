@@ -49,12 +49,12 @@ class _CategoryPageState extends State<CategoryPage> {
       SafeArea(
         child: 
           Column(
-            mainAxisSize: MainAxisSize.max,
+            // mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
                 child: Container(
-                width: 405.4,
-                height: 732.3,
+                // width: 405.4,
+                // height: 732.3,
                 decoration: const BoxDecoration(
                   color: Color(0xFFE6EBE0),
                 ),
