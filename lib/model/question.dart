@@ -102,7 +102,7 @@ final questions = [
     image: "${Config.server}/signlearn/assets/c1/quiz/3.png",
     text: "Which of the following describes the sign language in the above image?",
     options: [
-      const Option(text: 'Hot', isCorrect: true),
+      const Option(text: 'Hot', isCorrect: false),
       const Option(text: 'Air', isCorrect: false),
       const Option(text: 'Way', isCorrect: true),
       const Option(text: 'Fan', isCorrect: false),

@@ -48,6 +48,7 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         title: const Text('SignLearn'),
         centerTitle: true,
+        backgroundColor: const Color(0xFFACD783),
       ),
       body: pages[index],
       bottomNavigationBar: NavigationBar(

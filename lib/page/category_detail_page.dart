@@ -52,7 +52,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
           backgroundColor: const Color(0xFFACD783),
           automaticallyImplyLeading: true,
           title: Text(widget.categoryTitle.toString(),
-            style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold, color: Colors.white)
+            style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold)
           ),
           actions: const [],
           centerTitle: true,

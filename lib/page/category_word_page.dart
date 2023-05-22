@@ -79,7 +79,7 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
                   width: 456.4,
                   height: 261.6,
                   decoration: const BoxDecoration(
-                    color: Color(0xFFC6DEAE),
+                    color: Color(0xFFE6EBE0),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(0),
                       bottomRight: Radius.circular(0),
@@ -121,8 +121,8 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
                               const EdgeInsetsDirectional.fromSTEB(20, 0, 10, 10),
                           child: Text(
                             widget.description.toString(),
-                            textAlign: TextAlign.start,
-                            style: const TextStyle(fontSize: 20, height: 1.2)
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height: 1.5)
                           ),
                         ),
                       ),

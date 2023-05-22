@@ -24,6 +24,17 @@ class _QuizPageState extends State<QuizPage>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: const Color(0xFFF1F4F8),
+      appBar: AppBar(
+          backgroundColor: const Color(0xFFACD783),
+          automaticallyImplyLeading: true,
+          title: Text(widget.categoryTitle.toString(),
+            style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5, fontWeight: FontWeight.bold)
+          ),
+          actions: const [],
+          centerTitle: true,
+          elevation: 5,
+        ),
       // body: Stack(
       //   children: [
       //     SafeArea(
@@ -42,31 +53,57 @@ class _QuizPageState extends State<QuizPage>{
       //               InkWell(
       //                 onTap: () {Navigator.push(context, MaterialPageRoute(builder: (content) => 
       //                 Scaffold(
-                        body:  Padding (
+                        body:   Padding (
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Column(
+                            child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              const SizedBox(height: 32),
-                              Text('Question $questionNumber/${questions.length}'),
+                              const SizedBox(height: 20),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 40),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFACD783),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child:Text('Question $questionNumber/${questions.length}',
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'Raleway', 
+                                      height: 1.5,
+                                  ),)
+                              ),
+                              const SizedBox(height: 10),
                               const Divider(thickness: 1, color: Colors.grey),
+                              const SizedBox(height: 10),
                               Expanded(
-                                flex: 8,
-                                child: PageView.builder(
+                                flex: 9,
+                                child: Container(
+                                  padding: EdgeInsets.all(15),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(25)
+                                  ),
+                                  child: PageView.builder(
                                   itemCount: questions.length,
                                   controller: pageController,
-                                  physics: const NeverScrollableScrollPhysics(),
+                                  // physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     final question = questions[index];
                                     return buildQuestion(question);
                                   },
                                 )
+                                ),
                               ),
-                              isLocked ? buildElevatedButton() : const SizedBox.shrink(),
-                              const SizedBox(height: 20)
+                              const SizedBox(height: 10),
+                              Expanded(
+                                flex: 1,
+                                child: isLocked ? buildElevatedButton() : const SizedBox.shrink(),
+                              ),
+                              const SizedBox(height: 10)
                             ],
                           )
-                        )
+                          ),
                       );
 
                         // Scaffold(
@@ -154,7 +191,7 @@ class _QuizPageState extends State<QuizPage>{
 
   Column buildQuestion(Question question) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
           flex: 3,
@@ -162,12 +199,18 @@ class _QuizPageState extends State<QuizPage>{
             imageUrl: question.image,
           ),
         ),
+        const SizedBox(height: 8),
         Expanded(
-          flex: 2,
+          flex: 1,
           child: Text(question.text, 
-            style: const TextStyle(fontSize: 25)
+            style: const TextStyle(
+              fontSize: 18,
+              fontFamily: 'Raleway', 
+              height: 1.3
+            ), textAlign: TextAlign.justify,
           )
         ),
+        const SizedBox(height: 10),
         Expanded(
           flex: 5,
           child: OptionWidget(
@@ -187,7 +230,8 @@ class _QuizPageState extends State<QuizPage>{
               }
             }
           )
-        )
+        ),
+        const SizedBox(height: 10),
       ],
     );
   }
@@ -215,7 +259,8 @@ class _QuizPageState extends State<QuizPage>{
         }
       }, 
       child: Text(
-        questionNumber < questions.length ? 'Next' : 'See the Result'));
+        questionNumber < questions.length ? 'Next' : 'See the Result')
+    );
   }
 }
 
@@ -230,8 +275,10 @@ class OptionWidget extends StatelessWidget {
     }) : super (key:key);
     
     @override
-    Widget build(BuildContext context) => SingleChildScrollView(
-      child: Column(
+    Widget build(BuildContext context) => 
+    SingleChildScrollView(
+      child: 
+      Column(
         children: question.options
         .map((option) => buildOption(context, option))
         .toList()
@@ -243,8 +290,8 @@ class OptionWidget extends StatelessWidget {
       return GestureDetector(
         onTap: () => onClickedOption(option),
         child: Container(
-        height: 50,
-        padding: const EdgeInsets.all(12),
+        height: 40,
+        padding: const EdgeInsets.fromLTRB(15, 3, 3, 3),
         margin: const EdgeInsets.symmetric(vertical:8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
@@ -256,7 +303,7 @@ class OptionWidget extends StatelessWidget {
         children: [
           Text(
             option.text,
-            style: const TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 18),
           ),
           getIconForOption(option, question)
         ],

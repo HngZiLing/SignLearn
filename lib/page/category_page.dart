@@ -59,7 +59,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   color: Color(0xFFE6EBE0),
                 ),
                 child: ListView(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
                   scrollDirection: Axis.vertical,
                   children: List.generate(categoryList.length, (index) {
                     return SingleChildScrollView(
@@ -144,8 +144,8 @@ class _CategoryPageState extends State<CategoryPage> {
                           ],
                         ),
                       ),
-                      
                     ),
+                    
                     )
                      
                     );
@@ -157,6 +157,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 ),
               ),
               ),
+              
             ],
           )
       ),
