@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../config.dart';
@@ -23,20 +24,60 @@ class _FavouritePageState extends State<FavouritePage> {
       body: SafeArea(
         child: 
           Column(
-            mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                child: ListView.builder( 
-      itemCount: words.length,
-      itemBuilder: (context, index) {
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 1,
+              ), 
+              itemCount: words.length,
+                  itemBuilder: (context, index) {
+
         final word = words[index];
-        loadWord(word);
-        return ListTile(
-          leading: CircleAvatar(
-          backgroundImage: NetworkImage(Config.server + "/signlearn/assets/c" + category + "/" + id + '.png'),
-        ),
-          title: Text(word),
-          trailing: IconButton(
+        return SingleChildScrollView(
+          child : InkWell(
+            child : 
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+              child: 
+              Container(
+          margin: const EdgeInsets.fromLTRB(10, 20, 10, 15),
+          height: 180,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            color: const Color(0xFFE6EBE0),
+          ),
+          child: Padding(
+              padding: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Expanded(
+              flex: 8,
+              child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: CachedNetworkImage(
+                      imageUrl: Config.server + "/signlearn/assets/asl/" + word + '.png',
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                  
+          ),
+          Expanded(
+            flex: 2,
+              child: Row(
+              children: [
+                Text(word, 
+                textAlign: TextAlign.start,
+                style: const TextStyle(
+                  fontSize: 20, 
+                  fontFamily: 'Raleway', 
+                  height:1.5,fontWeight: 
+                  FontWeight.bold,
+                )),
+                IconButton(
+                  alignment: Alignment.centerRight,
             onPressed: () {
               provider.toggleFavourite(word);
             },
@@ -44,9 +85,67 @@ class _FavouritePageState extends State<FavouritePage> {
             ? const Icon(Icons.favorite, color: Colors.red)
             : const Icon(Icons.favorite_border) 
           ),
+              ],
+            )
+            
+          )
+          ],
+        ))
+        )
+            )
+          )
         );
+
       })
-              )
+                )
+                
+                
+      //           ListView.builder( 
+      // itemCount: words.length,
+      // itemBuilder: (context, index) {
+      //   final word = words[index];
+      //   return SingleChildScrollView(
+      //     child : InkWell(
+            // onTap : ()=> {
+            //   Navigator.push(context, MaterialPageRoute( 
+            //     builder: (content) => CategoryDetailsPage(categoryTitle: categoryList[index].categoryTitle.toString(), categoryId : search)
+            //     ))
+            //   },
+        //     child : Padding(
+        //       padding: const EdgeInsetsDirectional.fromSTEB(15, 15, 15, 0),
+        //       child: Container(
+        //   margin: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+        //   height: 80,
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.circular(25),
+        //     color: const Color(0xFFE6EBE0),
+        //   ),
+        //   child: ListTile(
+        //   leading: CircleAvatar(
+        //     radius: 25,
+        //   backgroundImage: NetworkImage(Config.server + "/signlearn/assets/asl/" + word + '.png'),
+        // ),
+        //   title: Text(word, style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold,)),
+        //   trailing: IconButton(
+        //     onPressed: () {
+        //       provider.toggleFavourite(word);
+        //     },
+        //     icon: provider.isExist(word)
+        //     ? const Icon(Icons.favorite, color: Colors.red)
+        //     : const Icon(Icons.favorite_border) 
+        //   ),
+        // )
+        // )
+
+        //     )
+      //     )
+      //   );
+  
+        
+        
+      
+      // })
+              // )
             ]
           )
       )
@@ -54,11 +153,11 @@ class _FavouritePageState extends State<FavouritePage> {
   }
 
   void loadWord(String search){
-    String title = search;
-  http.post(
+    String id = search;
+    http.post(
    Uri.parse("${Config.server}/signlearn/php/load_dictionary_word.php"),
    body: {
-    'search' : title,
+    'search' : id,
     }).then((response) {
       var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
