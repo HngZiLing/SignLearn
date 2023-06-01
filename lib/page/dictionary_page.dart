@@ -32,10 +32,14 @@ class _DictionaryPageState extends State<DictionaryPage> {
   String titlecenter = "Loading data";
   List<_AZItem> items = [];
   List<Word> wordList = <Word>[];
+      
 
   @override
   void initState(){
     super.initState();
+    widget.items.sort((a, b) {
+      return a.toString().compareTo(b.toString());
+    });
     initList(widget.items);
   }
 

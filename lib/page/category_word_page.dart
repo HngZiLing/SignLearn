@@ -87,14 +87,15 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
                       topRight: Radius.circular(30),
                     ),
                   ),
-                  child: Column(
+                  child: SingleChildScrollView(
+                    child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Align(
                         alignment: const AlignmentDirectional(-1, 0),
                         child: Padding(
                           padding:
-                              const EdgeInsetsDirectional.fromSTEB(20, 30, 10, 5),
+                              const EdgeInsetsDirectional.fromSTEB(20, 15, 30, 10),
                           child: ListTile(
                             title: Text(
                             widget.title.toString(),
@@ -118,16 +119,18 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
                         alignment: const AlignmentDirectional(-1, 0),
                         child: Padding(
                           padding:
-                              const EdgeInsetsDirectional.fromSTEB(20, 0, 10, 10),
+                              const EdgeInsetsDirectional.fromSTEB(30, 0, 30, 10),
                           child: Text(
                             widget.description.toString(),
                             textAlign: TextAlign.justify,
-                            style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height: 1.5)
+                            style: const TextStyle(fontSize: 18, fontFamily: 'Raleway', height: 1.5)
                           ),
                         ),
                       ),
                     ],
                   ),
+                  )
+                   
                 ),
               ),
             ],

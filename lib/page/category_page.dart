@@ -5,6 +5,12 @@ import 'package:signlearn/config.dart';
 import 'package:http/http.dart' as http;
 import 'package:signlearn/page/category_detail_page.dart';
 import '../model/category.dart';
+import 'package:signlearn/page/dictionary_page.dart';
+import 'package:signlearn/page/Favourite_page.dart';
+import 'package:signlearn/model/dictionary.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({Key? key}) : super(key: key);
@@ -20,11 +26,24 @@ class _CategoryPageState extends State<CategoryPage> {
   List wordList = [];
   String titlecenter = "Loading category";
   String search = "";
+  int index = 0;
+  String name = "";
+  List <Dictionary> dictionaryList = <Dictionary>[];
+  List<String> dictionaryTitle= [];
+  late List pages = [];
 
   @override
   void initState() {
     super.initState();
     loadCategory();
+    pages = [
+      const CategoryPage(),
+      DictionaryPage(
+        onClickedItem: (item) {},
+        items: dictionaryTitle
+      ),
+      const FavouritePage()
+    ]; 
   }
 
   @override
@@ -37,6 +56,35 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      appBar: AppBar(
+        title: const Text('SignLearn'),
+        centerTitle: true,
+        backgroundColor: const Color(0xFFACD783),
+      ),
+      bottomNavigationBar: NavigationBar(
+        height: 60,
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        selectedIndex: index,
+        onDestinationSelected: (index) => setState(() =>this.index = index),
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.view_list_outlined),
+            selectedIcon: Icon(Icons.view_list), 
+            label: 'Category'
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.search_rounded),
+            selectedIcon: Icon(Icons.search_outlined), 
+            label: 'Dictionary'
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.favorite_outline),
+            selectedIcon: Icon(Icons.favorite), 
+            label: 'Save'
+          ),
+        ],
+      ),
+      // body: pages[index];
       body: categoryList.isEmpty ? 
       Center(
         child: Padding(
@@ -161,6 +209,31 @@ class _CategoryPageState extends State<CategoryPage> {
             ],
           )
       ),
+    );
+  }
+
+  void loadDictionary(){
+  http.post(
+   Uri.parse("${Config.server}/signlearn/php/load_dictionary.php")
+  ).then((response) {
+      var jsondata = jsonDecode(response.body);
+      if (response.statusCode == 200 && jsondata['status'] == 'success') {
+        var extractdata = jsondata['data'];
+        if (extractdata['dictionary'] != null) {
+            dictionaryList = <Dictionary>[];
+            extractdata['dictionary'].forEach((v) {
+            dictionaryList.add(Dictionary.fromJson(v));
+            name = Dictionary.fromJson(v).wordTitle.toString();
+            dictionaryTitle.add(name);
+          });
+          setState(() { });
+        }
+      } 
+    }).timeout(
+    const Duration(seconds: 60), 
+    onTimeout:(){
+      return;
+    },
     );
   }
 

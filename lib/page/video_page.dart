@@ -30,7 +30,6 @@ class _VideoPageState extends State<VideoPage> {
   void initState() {
       loadVideo(widget.categoryId.toString());
     super.initState();
-    
   }
 
   @override

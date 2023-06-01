@@ -240,7 +240,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                         ),
                           Text(
                           wordList[index].wordTitle.toString(), textAlign: TextAlign.center, 
-                            style: const TextStyle(fontSize: 20, height: 1.2)
+                            style: const TextStyle(fontSize: 15, height: 1.5)
                           ),
                       ],
                     )

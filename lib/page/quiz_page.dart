@@ -1,6 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:signlearn/model/question.dart';
+import 'package:signlearn/page/category_detail_page.dart';
+import 'package:signlearn/page/category_page.dart';
+
+import '../main.dart';
 
 class QuizPage extends StatefulWidget {
   final String categoryTitle, categoryId;
@@ -24,7 +28,7 @@ class _QuizPageState extends State<QuizPage>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F4F8),
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
           backgroundColor: const Color(0xFFACD783),
           automaticallyImplyLeading: true,
@@ -79,7 +83,7 @@ class _QuizPageState extends State<QuizPage>{
                               Expanded(
                                 flex: 9,
                                 child: Container(
-                                  padding: EdgeInsets.all(15),
+                                  padding: const EdgeInsets.all(15),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(25)
@@ -344,9 +348,62 @@ class OptionWidget extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
       return Scaffold(
-        body: Center(
-          child: Text('You get $score/${questions.length}'),
+        body: Center
+        (child: 
+        Container(
+          alignment: Alignment.center,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Color(0xFFACD783),
+                Color.fromARGB(255, 173, 218, 255),
+              ],
+            )
+          ),
+          child: Container(
+            height: 300,
+            width: 300,
+            padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(25)
+              ),
+            child: Center(
+              child: Column(
+          children: [
+            const SizedBox(height: 80,),
+            Text('You get $score/${questions.length}', 
+            style: const TextStyle(
+              fontSize: 25, 
+              fontFamily: 'Raleway', 
+              height:1.5,
+              )
+            ),
+            const SizedBox(height: 50),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context, 
+                  MaterialPageRoute(
+                    builder: (context) => const MainPage(),
+            ),
+          );
+              },
+              child: const Text("Got it", 
+              style: TextStyle(
+              fontSize: 25, 
+              fontFamily: 'Raleway', 
+              height:1.5,)),
+            )
+          ]
         )
+            ),
+          
+        )
+          ),
+        ),
       );
     }
   }

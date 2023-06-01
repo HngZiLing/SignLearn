@@ -19,14 +19,13 @@ class _FavouritePageState extends State<FavouritePage> {
   Widget build(BuildContext context){
     final provider = Provider.of<FavouriteProvider>(context);
     final words = provider.getWord;
-    
+
     return Scaffold(
-      body: SafeArea(
-        child: 
-          Column(
-            children: [
-              Expanded(
-                child: GridView.builder(
+    body: SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+            child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 2,
@@ -36,21 +35,21 @@ class _FavouritePageState extends State<FavouritePage> {
                   itemBuilder: (context, index) {
 
         final word = words[index];
-        return SingleChildScrollView(
-          child : InkWell(
-            child : 
-            Padding(
+        
+        return InkWell(
+              child: 
+                  Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
               child: 
               Container(
-          margin: const EdgeInsets.fromLTRB(10, 20, 10, 15),
+          margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
           height: 180,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
             color: const Color(0xFFE6EBE0),
           ),
           child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               Expanded(
@@ -66,41 +65,54 @@ class _FavouritePageState extends State<FavouritePage> {
           ),
           Expanded(
             flex: 2,
-              child: Row(
-              children: [
-                Text(word, 
-                textAlign: TextAlign.start,
-                style: const TextStyle(
-                  fontSize: 20, 
-                  fontFamily: 'Raleway', 
-                  height:1.5,fontWeight: 
-                  FontWeight.bold,
-                )),
-                IconButton(
-                  alignment: Alignment.centerRight,
-            onPressed: () {
-              provider.toggleFavourite(word);
-            },
-            icon: provider.isExist(word)
-            ? const Icon(Icons.favorite, color: Colors.red)
-            : const Icon(Icons.favorite_border) 
-          ),
-              ],
+              child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 7,
+                        child: Text(word, 
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(
+                          fontSize: 18, 
+                          fontFamily: 'Raleway', 
+                          height:1.2
+                          )),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: IconButton(
+                          alignment: Alignment.centerRight,
+                          onPressed: () {
+                            provider.toggleFavourite(word);
+                            },
+                            icon: provider.isExist(word)
+                            ? const Icon(Icons.favorite, color: Colors.red)
+                            : const Icon(Icons.favorite_border) 
+                            ),
+                      )
+                  ],) 
+                )
             )
-            
-          )
+          
+          
           ],
-        ))
+        )
+        )
         )
             )
-          )
+            
         );
 
-      })
-                )
+      }
+          )
+          )
+          ]
+      )
+    ));
+  }
                 
-                
-      //           ListView.builder( 
+      // ListView.builder( 
       // itemCount: words.length,
       // itemBuilder: (context, index) {
       //   final word = words[index];
@@ -146,11 +158,7 @@ class _FavouritePageState extends State<FavouritePage> {
       
       // })
               // )
-            ]
-          )
-      )
-    );
-  }
+
 
   void loadWord(String search){
     String id = search;
