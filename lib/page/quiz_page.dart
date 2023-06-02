@@ -39,26 +39,8 @@ class _QuizPageState extends State<QuizPage>{
           centerTitle: true,
           elevation: 5,
         ),
-      // body: Stack(
-      //   children: [
-      //     SafeArea(
-      //       child: Padding(
-      //         padding: const EdgeInsets.symmetric(horizontal: 20),
-      //         child: Column(
-      //           crossAxisAlignment: CrossAxisAlignment.start,
-      //           children: [
-      //             const Spacer(flex:2),
-      //             Text(
-      //               "Let's Play Quiz",
-      //               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-      //                 color: Colors.blue, fontWeight: FontWeight.bold
-      //               ),),
-      //               const Spacer(),
-      //               InkWell(
-      //                 onTap: () {Navigator.push(context, MaterialPageRoute(builder: (content) => 
-      //                 Scaffold(
-                        body:   Padding (
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        body:   Padding (
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
                             child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -109,88 +91,6 @@ class _QuizPageState extends State<QuizPage>{
                           )
                           ),
                       );
-
-                        // Scaffold(
-                        //   body: Stack(
-                        //     children: [
-                        //       SafeArea(
-                        //         child: Padding(
-                        //           padding: const EdgeInsets.symmetric(horizontal: 50),
-                        //           child: Column(
-                        //             children: [
-                        //               Container(
-                        //                 width: double.infinity,
-                        //                 height: 35,
-                        //                 decoration: BoxDecoration(
-                        //                   border: Border.all(color: Color(0xFF3F4768), width: 3),
-                        //                   borderRadius: BorderRadius.circular(50),
-                        //                 ),
-                        //                 child: Stack(
-                        //                   children: [
-                        //                     LayoutBuilder(
-                        //                       builder: (context, constraints) => Container(
-                        //                         width: constraints.maxWidth * 0.5,
-                        //                         decoration: BoxDecoration(
-                        //                           gradient: const LinearGradient(
-                        //                             colors: [Color(0xFF46A0AE), Color(0xFF00FFCB)],
-                        //                             begin: Alignment.centerLeft,
-                        //                             end: Alignment.centerRight
-                        //                           ),
-                        //                           borderRadius: BorderRadius.circular(50),
-                        //                         ),
-                        //                       )
-                        //                     ),
-                        //                     Positioned.fill(
-                        //                       child: Padding(
-                        //                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        //                         child: Row(
-                        //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //                           children: [
-                        //                             Text("18 sec")
-                        //                           ]
-                        //                         ),
-                        //                       )
-                        //                     )
-                        //                   ],
-                        //                 )
-                        //               )
-                        //             ]
-                        //           ),
-                        //         )
-                        //       )
-                        //     ],
-                        //   )
-                        // )
-      //                 )); },
-      //                 child: Container(
-      //                   width: double.infinity,
-      //                   alignment: Alignment.center,
-      //                   padding: const EdgeInsets.all(15),
-      //                   decoration: const BoxDecoration(
-      //                     gradient: LinearGradient(
-      //                       colors: [Color(0xFF46A0AE), Color(0xFF00FFCB)],
-      //                       begin: Alignment.centerLeft,
-      //                       end: Alignment.centerRight
-      //                     ),
-      //                     borderRadius: BorderRadius.all(Radius.circular(12)),
-      //                   ),
-      //                   child: Text(
-      //                     "Lets Start Quiz",
-      //                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-      //                       color: Colors.black
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //               const Spacer(flex:2)
-      //           ],
-      //         ),
-      //       )
-      //     )
-      //   ],
-      // ),
-    // );
-   
   }
 
   Column buildQuestion(Question question) {

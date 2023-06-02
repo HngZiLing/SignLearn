@@ -11,6 +11,7 @@ import 'package:signlearn/favourite_provider.dart';
 import 'package:signlearn/page/category_page.dart';
 // import 'dart:convert';
 import 'package:signlearn/config.dart';
+import 'package:signlearn/page/main_page.dart';
 // import 'package:http/http.dart' as http;
 // import 'dart:async';
 
@@ -44,7 +45,7 @@ class _MainPageState extends State<MainPage>{
     // ]; 
     Timer(
       const Duration(seconds: 2),
-      () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (content) => const CategoryPage()))
+      () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (content) => const MainScreen()))
     );
   }
 
