@@ -5,14 +5,13 @@ class Dictionary {
   String? categoryId;
   String? categoryTitle;
 
-  Dictionary(
-    { this.wordId,
-      this.wordTitle,
-      this.wordDescription,
-      this.categoryId,
-      this.categoryTitle,
-    }
-  );
+  Dictionary({
+    this.wordId,
+    this.wordTitle,
+    this.wordDescription,
+    this.categoryId,
+    this.categoryTitle,
+  });
 
   Dictionary.fromJson(Map<String, dynamic> json) {
     wordId = json['word_id'];
@@ -20,7 +19,6 @@ class Dictionary {
     wordDescription = json['word_description'];
     categoryId = json['category_id'];
     categoryTitle = json['category_title'];
-    
   }
 
   Map<String, dynamic> toJson() {

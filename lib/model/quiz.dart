@@ -1,6 +1,6 @@
 import 'package:signlearn/config.dart';
 
-class Question{
+class Question {
   final String image;
   final String text;
   final List<Option> options;
@@ -16,7 +16,7 @@ class Question{
   });
 }
 
-class Option{
+class Option {
   final String text;
   final bool isCorrect;
 
@@ -29,7 +29,8 @@ class Option{
 final questions = [
   Question(
     image: "${Config.server}/signlearn/assets/c1/13.png",
-    text: "Which of the following describes the sign language in the above image?",
+    text:
+        "Which of the following describes the sign language in the above image?",
     options: [
       const Option(text: 'N', isCorrect: false),
       const Option(text: 'B', isCorrect: false),
@@ -38,4 +39,3 @@ final questions = [
     ],
   ),
 ];
-

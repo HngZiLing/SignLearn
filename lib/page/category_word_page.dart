@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,8 +7,14 @@ import 'package:signlearn/model/word.dart';
 
 class CategoryWordPage extends StatefulWidget {
   final String id, title, description, category;
-  const CategoryWordPage({Key? key, required this.id, required this.title, required this.description, required this.category}) : super(key: key);
-  
+  const CategoryWordPage(
+      {Key? key,
+      required this.id,
+      required this.title,
+      required this.description,
+      required this.category})
+      : super(key: key);
+
   @override
   State<CategoryWordPage> createState() => _CategoryWordPageState();
 }
@@ -20,7 +24,7 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
   List<Word> favourite = [];
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
-  
+
   String titleName = "";
 
   @override
@@ -35,7 +39,6 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<FavouriteProvider>(context);
@@ -48,7 +51,13 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
           backgroundColor: const Color(0xFFACD783),
           automaticallyImplyLeading: true,
           title: Text(widget.title.toString(),
-            style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold, color: Colors.white)
+            style: const TextStyle(
+              fontSize: 20,
+              fontFamily: 'Raleway',
+              height: 1.5,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+            )
           ),
           actions: const [],
           centerTitle: true,
@@ -65,7 +74,12 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: CachedNetworkImage(
-                      imageUrl: Config.server + "/signlearn/assets/c" + widget.category.toString() + "/" + widget.id.toString() + '.png',
+                      imageUrl: Config.server +
+                          "/signlearn/assets/c" +
+                          widget.category.toString() +
+                          "/" +
+                          widget.id.toString() +
+                          '.png',
                       width: 423,
                       height: 295.4,
                       fit: BoxFit.fitHeight,
@@ -89,48 +103,46 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
                   ),
                   child: SingleChildScrollView(
                     child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Align(
-                        alignment: const AlignmentDirectional(-1, 0),
-                        child: Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(20, 15, 30, 10),
-                          child: ListTile(
-                            title: Text(
-                            widget.title.toString(),
-                            style: 
-                            const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold)
-                          ),
-                          trailing: IconButton(
-                            onPressed: () {
-                              provider.toggleFavourite(widget.title);
-                            },
-                            icon: provider.isExist(widget.title)
-                            ? const Icon(
-                              Icons.favorite,
-                              color: Colors.red)
-                            : const Icon(Icons.favorite_border),
-                          ),
-                          )
-                        ),
-                      ),
-                      Align(
-                        alignment: const AlignmentDirectional(-1, 0),
-                        child: Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(30, 0, 30, 10),
-                          child: Text(
-                            widget.description.toString(),
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(fontSize: 18, fontFamily: 'Raleway', height: 1.5)
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Align(
+                          alignment: const AlignmentDirectional(-1, 0),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(20, 15, 30, 10),
+                            child: ListTile(
+                              title: Text(widget.title.toString(),
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Raleway',
+                                  height: 1.5,
+                                  fontWeight: FontWeight.bold
+                                )
+                              ),
+                              trailing: IconButton(
+                                onPressed: () {provider.toggleFavourite(widget.title);},
+                                icon: provider.isExist(widget.title)
+                                ? const Icon(Icons.favorite, color: Colors.red) : const Icon(Icons.favorite_border),
+                              ),
+                            )
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                        Align(
+                          alignment: const AlignmentDirectional(-1, 0),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(30, 0, 30, 10),
+                            child: Text(widget.description.toString(),
+                              textAlign: TextAlign.justify,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Raleway',
+                                height: 1.5
+                              )
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   )
-                   
                 ),
               ),
             ],
@@ -139,28 +151,4 @@ class _CategoryWordPageState extends State<CategoryWordPage> {
       ),
     );
   }
-
-  // void addToFavourite(String wordId) {
-  //   http.post(
-  //     Uri.parse("${Config.server}/signlearn/php/add_to_favourite.php"),
-  //     body: {
-  //       "word_id" : widget.id.toString(),
-  //       "word_title" : widget.title.toString(),
-  //       "word_description" : widget.description.toString(),
-  //       "category_id" : widget.category.toString(),
-  //     }
-  //   ).timeout(
-  //     const Duration(seconds: 5),
-  //     onTimeout: () {
-  //       return http.Response(
-  //         'Error', 408
-  //       );
-  //     }
-  //   ).then((response) {
-  //     var jsondata = jsonDecode(response.body);
-  //     if (response.statusCode == 200 && jsondata['status'] == 'success') {
-  //       setState(() {});
-  //     }
-  //   });
-  // }
 }

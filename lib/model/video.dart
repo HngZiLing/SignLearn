@@ -4,13 +4,12 @@ class Video {
   String? videoUrl;
   String? categoryId;
 
-  Video(
-    { this.videoId,
-      this.videoTitle,
-      this.videoUrl,
-      this.categoryId,
-    }
-  );
+  Video({
+    this.videoId,
+    this.videoTitle,
+    this.videoUrl,
+    this.categoryId,
+  });
 
   Video.fromJson(Map<String, dynamic> json) {
     videoId = json['video_id'];

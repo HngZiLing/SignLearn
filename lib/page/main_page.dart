@@ -7,20 +7,19 @@ import 'package:signlearn/page/dictionary_page.dart';
 import 'package:signlearn/page/Favourite_page.dart';
 import 'package:signlearn/model/dictionary.dart';
 
-
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
-  State<MainScreen> createState()=> _MainScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   int index = 0;
   String name = "";
-  List <Dictionary> dictionaryList = <Dictionary>[];
-  List<String> dictionaryTitle= [];
+  List<Dictionary> dictionaryList = <Dictionary>[];
+  List<String> dictionaryTitle = [];
   late List pages = [];
 
   @override
@@ -29,12 +28,9 @@ class _MainScreenState extends State<MainScreen> {
     loadDictionary();
     pages = [
       const CategoryPage(),
-      DictionaryPage(
-        onClickedItem: (item) {},
-        items: dictionaryTitle
-      ),
+      DictionaryPage(onClickedItem: (item) {}, items: dictionaryTitle),
       const FavouritePage()
-    ]; 
+    ];
   }
 
   @override
@@ -51,21 +47,21 @@ class _MainScreenState extends State<MainScreen> {
         height: 60,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         selectedIndex: index,
-        onDestinationSelected: (index) => setState(() =>this.index = index),
+        onDestinationSelected: (index) => setState(() => this.index = index),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.view_list_outlined),
-            selectedIcon: Icon(Icons.view_list), 
+            selectedIcon: Icon(Icons.view_list),
             label: 'Category'
           ),
           NavigationDestination(
             icon: Icon(Icons.search_rounded),
-            selectedIcon: Icon(Icons.search_outlined), 
+            selectedIcon: Icon(Icons.search_outlined),
             label: 'Dictionary'
           ),
           NavigationDestination(
             icon: Icon(Icons.favorite_outline),
-            selectedIcon: Icon(Icons.favorite), 
+            selectedIcon: Icon(Icons.favorite),
             label: 'Save'
           ),
         ],
@@ -73,28 +69,28 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  void loadDictionary(){
-  http.post(
-   Uri.parse("${Config.server}/signlearn/php/load_dictionary.php")
-  ).then((response) {
+  void loadDictionary() {
+    http
+        .post(Uri.parse("${Config.server}/signlearn/php/load_dictionary.php"))
+        .then((response) {
       var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
         var extractdata = jsondata['data'];
         if (extractdata['dictionary'] != null) {
-            dictionaryList = <Dictionary>[];
-            extractdata['dictionary'].forEach((v) {
+          dictionaryList = <Dictionary>[];
+          extractdata['dictionary'].forEach((v) {
             dictionaryList.add(Dictionary.fromJson(v));
             name = Dictionary.fromJson(v).wordTitle.toString();
             dictionaryTitle.add(name);
           });
-          setState(() { });
+          setState(() {});
         }
-      } 
+      }
     }).timeout(
-    const Duration(seconds: 60), 
-    onTimeout:(){
-      return;
-    },
+      const Duration(seconds: 60),
+      onTimeout: () {
+        return;
+      },
     );
   }
 }

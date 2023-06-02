@@ -4,13 +4,12 @@ class Word {
   String? wordDescription;
   String? categoryId;
 
-  Word(
-    { this.wordId,
-      this.wordTitle,
-      this.wordDescription,
-      this.categoryId,
-    }
-  );
+  Word({
+    this.wordId,
+    this.wordTitle,
+    this.wordDescription,
+    this.categoryId,
+  });
 
   Word.fromJson(Map<String, dynamic> json) {
     wordId = json['word_id'];

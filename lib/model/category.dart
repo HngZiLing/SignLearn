@@ -3,12 +3,11 @@ class Category {
   String? categoryTitle;
   String? categoryDescription;
 
-  Category(
-    { this.categoryId,
-      this.categoryTitle,
-      this.categoryDescription,
-    }
-  );
+  Category({
+    this.categoryId,
+    this.categoryTitle,
+    this.categoryDescription,
+  });
 
   Category.fromJson(Map<String, dynamic> json) {
     categoryId = json['category_id'];

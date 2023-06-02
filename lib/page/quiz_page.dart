@@ -1,20 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:signlearn/model/question.dart';
-import 'package:signlearn/page/category_detail_page.dart';
-import 'package:signlearn/page/category_page.dart';
 
 import '../main.dart';
 
 class QuizPage extends StatefulWidget {
   final String categoryTitle, categoryId;
-  const QuizPage({Key? key, required this.categoryTitle, required this.categoryId}) : super(key: key);
+  const QuizPage(
+    {Key? key, required this.categoryTitle, required this.categoryId}
+  ) : super(key: key);
 
   @override
   State<QuizPage> createState() => _QuizPageState();
 }
 
-class _QuizPageState extends State<QuizPage>{
+class _QuizPageState extends State<QuizPage> {
   int questionNumber = 1;
   late PageController pageController;
   int score = 0;
@@ -25,72 +25,78 @@ class _QuizPageState extends State<QuizPage>{
     super.initState();
     pageController = PageController(initialPage: 0);
   }
+
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-          backgroundColor: const Color(0xFFACD783),
-          automaticallyImplyLeading: true,
-          title: Text(widget.categoryTitle.toString(),
-            style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5, fontWeight: FontWeight.bold)
-          ),
-          actions: const [],
-          centerTitle: true,
-          elevation: 5,
+        backgroundColor: const Color(0xFFACD783),
+        automaticallyImplyLeading: true,
+        title: Text(widget.categoryTitle.toString(),
+          style: const TextStyle(
+            fontSize: 20,
+            fontFamily: 'Raleway',
+            height: 1.5,
+            fontWeight: FontWeight.bold
+          )
         ),
-        body:   Padding (
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              const SizedBox(height: 20),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 40),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFACD783),
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                child:Text('Question $questionNumber/${questions.length}',
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: 'Raleway', 
-                                      height: 1.5,
-                                  ),)
-                              ),
-                              const SizedBox(height: 10),
-                              const Divider(thickness: 1, color: Colors.grey),
-                              const SizedBox(height: 10),
-                              Expanded(
-                                flex: 9,
-                                child: Container(
-                                  padding: const EdgeInsets.all(15),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(25)
-                                  ),
-                                  child: PageView.builder(
-                                  itemCount: questions.length,
-                                  controller: pageController,
-                                  // physics: const NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    final question = questions[index];
-                                    return buildQuestion(question);
-                                  },
-                                )
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Expanded(
-                                flex: 1,
-                                child: isLocked ? buildElevatedButton() : const SizedBox.shrink(),
-                              ),
-                              const SizedBox(height: 10)
-                            ],
-                          )
-                          ),
-                      );
+        actions: const [],
+        centerTitle: true,
+        elevation: 5,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              decoration: BoxDecoration(
+                color: const Color(0xFFACD783),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Text(
+                'Question $questionNumber/${questions.length}',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Raleway',
+                  height: 1.5,
+                ),
+              )
+            ),
+            const SizedBox(height: 10),
+            const Divider(thickness: 1, color: Colors.grey),
+            const SizedBox(height: 10),
+            Expanded(
+              flex: 9,
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(25)),
+                child: PageView.builder(
+                  itemCount: questions.length,
+                  controller: pageController,
+                  itemBuilder: (context, index) {
+                    final question = questions[index];
+                    return buildQuestion(question);
+                  },
+                )
+              ),
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              flex: 1,
+              child: isLocked ? buildElevatedButton() : const SizedBox.shrink(),
+            ),
+            const SizedBox(height: 10)
+          ],
+        )
+      ),
+    );
   }
 
   Column buildQuestion(Question question) {
@@ -106,12 +112,14 @@ class _QuizPageState extends State<QuizPage>{
         const SizedBox(height: 8),
         Expanded(
           flex: 1,
-          child: Text(question.text, 
+          child: Text(
+            question.text,
             style: const TextStyle(
               fontSize: 18,
               fontFamily: 'Raleway', 
               height: 1.3
-            ), textAlign: TextAlign.justify,
+            ),
+            textAlign: TextAlign.justify,
           )
         ),
         const SizedBox(height: 10),
@@ -121,7 +129,7 @@ class _QuizPageState extends State<QuizPage>{
             question: question,
             onClickedOption: (option) {
               if (question.isLocked) {
-                return; 
+                return;
               } else {
                 setState(() {
                   question.isLocked = true;
@@ -155,102 +163,97 @@ class _QuizPageState extends State<QuizPage>{
           });
         } else {
           Navigator.pushReplacement(
-            context, 
+            context,
             MaterialPageRoute(
               builder: (context) => ResultPage(score: score),
             )
           );
         }
-      }, 
-      child: Text(
-        questionNumber < questions.length ? 'Next' : 'See the Result')
+      },
+      child: Text(questionNumber < questions.length ? 'Next' : 'See the Result')
     );
   }
 }
 
 class OptionWidget extends StatelessWidget {
-    final Question question;
-    final ValueChanged<Option> onClickedOption;
+  final Question question;
+  final ValueChanged<Option> onClickedOption;
 
-    const OptionWidget({
-      Key? key,
-      required this.question,
-      required this.onClickedOption,
-    }) : super (key:key);
-    
-    @override
-    Widget build(BuildContext context) => 
-    SingleChildScrollView(
-      child: 
-      Column(
-        children: question.options
-        .map((option) => buildOption(context, option))
-        .toList()
-      ),
-    );
+  const OptionWidget({
+    Key? key,
+    required this.question,
+    required this.onClickedOption,
+  }) : super(key: key);
 
-    Widget buildOption(BuildContext context, Option option){
-      final color = getColorForOption(option, question);
-      return GestureDetector(
-        onTap: () => onClickedOption(option),
-        child: Container(
+  @override
+  Widget build(BuildContext context) => SingleChildScrollView(
+    child: Column(
+      children: question.options.map((option) => buildOption(context, option)).toList()
+    ),
+  );
+
+  Widget buildOption(BuildContext context, Option option) {
+    final color = getColorForOption(option, question);
+    return GestureDetector(
+      onTap: () => onClickedOption(option),
+      child: Container(
         height: 40,
         padding: const EdgeInsets.fromLTRB(15, 3, 3, 3),
-        margin: const EdgeInsets.symmetric(vertical:8),
+        margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color : color),
+          border: Border.all(color: color),
           color: Colors.grey.shade200,
         ),
         child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            option.text,
-            style: const TextStyle(fontSize: 18),
-          ),
-          getIconForOption(option, question)
-        ],
-      ),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(option.text,
+              style: const TextStyle(fontSize: 18),
+            ),
+            getIconForOption(option, question)
+          ],
+        ),
       )
-      );
-    }
-
-    Color getColorForOption(Option option, Question question) {
-      final isSelected = option == question.selectedOption;
-      if(question.isLocked) {
-        if(isSelected) {
-          return option.isCorrect ? Colors.green : Colors.red;
-        } else if (option.isCorrect) {
-          return Colors.green;
-        }
-      } return Colors.grey.shade300;
-    }
-
-    Widget getIconForOption(Option option, Question question) {
-      final isSelected = option == question.selectedOption;
-      if(question.isLocked) {
-        if(isSelected) {
-          return option.isCorrect 
-          ? const Icon (Icons.check_circle, color: Colors.green)
-          : const Icon (Icons.cancel, color: Colors.red); 
-        } else if (option.isCorrect) {
-          return const Icon(Icons.check_circle, color: Colors.green);
-        }
-      } return const SizedBox.shrink();
-    }
+    );
   }
 
-  class ResultPage extends StatelessWidget {
-    const ResultPage({Key ? key, required this.score}) : super(key: key);
-    final int score;
+  Color getColorForOption(Option option, Question question) {
+    final isSelected = option == question.selectedOption;
+    if (question.isLocked) {
+      if (isSelected) {
+        return option.isCorrect ? Colors.green : Colors.red;
+      } else if (option.isCorrect) {
+        return Colors.green;
+      }
+    }
+    return Colors.grey.shade300;
+  }
 
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        body: Center
-        (child: 
-        Container(
+  Widget getIconForOption(Option option, Question question) {
+    final isSelected = option == question.selectedOption;
+    if (question.isLocked) {
+      if (isSelected) {
+        return option.isCorrect
+            ? const Icon(Icons.check_circle, color: Colors.green)
+            : const Icon(Icons.cancel, color: Colors.red);
+      } else if (option.isCorrect) {
+        return const Icon(Icons.check_circle, color: Colors.green);
+      }
+    }
+    return const SizedBox.shrink();
+  }
+}
+
+class ResultPage extends StatelessWidget {
+  const ResultPage({Key? key, required this.score}) : super(key: key);
+  final int score;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Container(
           alignment: Alignment.center,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -266,47 +269,47 @@ class OptionWidget extends StatelessWidget {
             height: 300,
             width: 300,
             padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25)
-              ),
+            decoration: BoxDecoration(
+              color: Colors.white, 
+              borderRadius: BorderRadius.circular(25)
+            ),
             child: Center(
               child: Column(
-          children: [
-            const SizedBox(height: 80,),
-            Text('You get $score/${questions.length}', 
-            style: const TextStyle(
-              fontSize: 25, 
-              fontFamily: 'Raleway', 
-              height:1.5,
+                children: [
+                  const SizedBox(height: 80),
+                  Text('You get $score/${questions.length}',
+                    style: const TextStyle(
+                      fontSize: 25,
+                      fontFamily: 'Raleway',
+                      height: 1.5,
+                    )
+                  ),
+                  const SizedBox(height: 50),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,MaterialPageRoute(
+                          builder: (context) => const MainPage(),
+                        ),
+                      );
+                    },
+                    child: const Text("Got it",
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontFamily: 'Raleway',
+                        height: 1.5,
+                      )
+                    ),
+                  )
+                ]
               )
             ),
-            const SizedBox(height: 50),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context, 
-                  MaterialPageRoute(
-                    builder: (context) => const MainPage(),
-            ),
-          );
-              },
-              child: const Text("Got it", 
-              style: TextStyle(
-              fontSize: 25, 
-              fontFamily: 'Raleway', 
-              height:1.5,)),
-            )
-          ]
-        )
-            ),
-          
-        )
-          ),
+          )
         ),
-      );
-    }
+      ),
+    );
   }
+}
 
   // class  extends StatelessWidget {
   //     @override

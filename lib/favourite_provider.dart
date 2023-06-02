@@ -4,9 +4,9 @@ class FavouriteProvider extends ChangeNotifier {
   List<String> wordList = [];
   List<String> get getWord => wordList;
 
-  void toggleFavourite(String word){
+  void toggleFavourite(String word) {
     final isExist = wordList.contains(word);
-    if(isExist) {
+    if (isExist) {
       wordList.remove(word);
     } else {
       wordList.add(word);
@@ -14,11 +14,11 @@ class FavouriteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool isExist(String word){
+  bool isExist(String word) {
     final isExist = wordList.contains(word);
     return isExist;
   }
-  
+
   void clearFavourite() {
     wordList = [];
     notifyListeners();

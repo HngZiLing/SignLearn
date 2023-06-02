@@ -6,8 +6,14 @@ import 'package:http/http.dart' as http;
 
 class DictionaryWordPage extends StatefulWidget {
   final String id, title, description, category, categoryName;
-  const DictionaryWordPage({Key? key, required this.id, required this.title, required this.description, required this.category, required this.categoryName}) : super(key: key);
-  
+  const DictionaryWordPage(
+      {Key? key,
+      required this.id,
+      required this.title,
+      required this.description,
+      required this.category,
+      required this.categoryName})
+      : super(key: key);
 
   @override
   State<DictionaryWordPage> createState() => _DictionaryWordPageState();
@@ -39,7 +45,13 @@ class _DictionaryWordPageState extends State<DictionaryWordPage> {
           backgroundColor: const Color(0xFFACD783),
           automaticallyImplyLeading: true,
           title: Text(widget.title.toString(),
-            style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold, color: Colors.white)
+            style: const TextStyle(
+              fontSize: 20,
+              fontFamily: 'Raleway',
+              height: 1.5,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+            )
           ),
           actions: const [],
           centerTitle: true,
@@ -87,34 +99,36 @@ class _DictionaryWordPageState extends State<DictionaryWordPage> {
                               child: Align(
                                 alignment: const AlignmentDirectional(-1, 0),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 10, 0, 10),
-                                  child: Text(
-                                    widget.title.toString(),
-                                    style: 
-                            const TextStyle(fontSize: 25, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold)
-                          ),
+                                  padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                                  child: Text(widget.title.toString(),
+                                    style: const TextStyle(
+                                      fontSize: 25,
+                                      fontFamily: 'Raleway',
+                                      height: 1.5,
+                                      fontWeight: FontWeight.bold
+                                    )
+                                  ),
                                 ),
                               ),
                             ),
                             IconButton(
-                              onPressed: () {addToFavourite(widget.id.toString());}, 
+                              onPressed: () {
+                                addToFavourite(widget.id.toString());
+                              },
                               icon: const Icon(
-                              Icons.favorite_border_rounded,
-                              color: Colors.black,
-                              size: 30,
-                            ),),
-                            
+                                Icons.favorite_border_rounded,
+                                color: Colors.black,
+                                size: 30,
+                              ),
+                            ),
                           ],
                         ),
                       ),
                       Align(
                         alignment: const AlignmentDirectional(-1, 0),
                         child: Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(20, 0, 10, 10),
-                          child: Text(
-                            'Category : ${widget.categoryName}',
+                          padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 10, 10),
+                          child: Text('Category : ${widget.categoryName}',
                             textAlign: TextAlign.start,
                             style: const TextStyle(fontSize: 20, height: 1.2)
                           ),
@@ -123,10 +137,8 @@ class _DictionaryWordPageState extends State<DictionaryWordPage> {
                       Align(
                         alignment: const AlignmentDirectional(-1, 0),
                         child: Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(20, 0, 10, 10),
-                          child: Text(
-                            widget.description.toString(),
+                          padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 10, 10),
+                          child: Text(widget.description.toString(),
                             textAlign: TextAlign.start,
                             style: const TextStyle(fontSize: 20, height: 1.2)
                           ),
@@ -142,25 +154,18 @@ class _DictionaryWordPageState extends State<DictionaryWordPage> {
       ),
     );
   }
-  
+
   void addToFavourite(String wordId) {
-    http.post(
-      Uri.parse("${Config.server}/signlearn/php/add_to_favourite.php"),
+    http.post(Uri.parse("${Config.server}/signlearn/php/add_to_favourite.php"),
       body: {
-        "word_id" : widget.id.toString(),
-        "word_title" : widget.title.toString(),
-        "word_description" : widget.description.toString(),
-        "category_id" : widget.category.toString(),
-        "category_title" : widget.categoryName.toString()
-      }
-    ).timeout(
-      const Duration(seconds: 5),
-      onTimeout: () {
-        return http.Response(
-          'Error', 408
-        );
-      }
-    ).then((response) {
+        "word_id": widget.id.toString(),
+        "word_title": widget.title.toString(),
+        "word_description": widget.description.toString(),
+        "category_id": widget.category.toString(),
+        "category_title": widget.categoryName.toString()
+      }).timeout(const Duration(seconds: 5), onTimeout: () {
+      return http.Response('Error', 408);
+    }).then((response) {
       var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
         setState(() {});

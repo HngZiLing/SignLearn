@@ -10,7 +10,7 @@ class CategoryPage extends StatefulWidget {
   const CategoryPage({Key? key}) : super(key: key);
 
   @override
-  State<CategoryPage> createState()=> _CategoryPageState();
+  State<CategoryPage> createState() => _CategoryPageState();
 }
 
 class _CategoryPageState extends State<CategoryPage> {
@@ -37,131 +37,124 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      body: categoryList.isEmpty ? 
-      Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(titlecenter,
-            style: const TextStyle(fontSize: 14, fontFamily: 'Raleway', height:1.5,fontWeight: FontWeight.bold),
+      body: categoryList.isEmpty
+        ? Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              titlecenter,
+              style: const TextStyle(
+                fontSize: 14,
+                fontFamily: 'Raleway',
+                height: 1.5,
+                fontWeight: FontWeight.bold
+              ),
+            ),
           ),
-        ),
-      ) :
-      SafeArea(
-        child: 
-          Column(
+        ) 
+        : SafeArea(
+          child: Column(
             children: [
               Expanded(
                 child: Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xFFE6EBE0),
-                ),
-                child: ListView(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                  scrollDirection: Axis.vertical,
-                  children: List.generate(categoryList.length, (index) {
-                    return SingleChildScrollView(
-                      child : InkWell(
-                        onTap : ()=> {
-                          search = categoryList[index].categoryId.toString(),
-                          Navigator.push(context, MaterialPageRoute( 
-                            builder: (content) => CategoryDetailsPage(categoryTitle: categoryList[index].categoryTitle.toString(), categoryId : search)
+                  decoration: const BoxDecoration(color: Color(0xFFE6EBE0)),
+                  child: ListView(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                    scrollDirection: Axis.vertical,
+                    children: List.generate(categoryList.length,(index) {
+                      return SingleChildScrollView(
+                        child: InkWell(
+                          onTap: () => {
+                            search = categoryList[index].categoryId.toString(),
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (content) => CategoryDetailsPage(
+                                categoryTitle: categoryList[index].categoryTitle.toString(),
+                                categoryId: search
+                              )
                             ))
                           },
-                        child : Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(15, 15, 15, 0),
-                      child: Container(
-                        width: 100,
-                        height: 123.7,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFFFFFFF),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Align(
-                              alignment: const AlignmentDirectional(-1, 0),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
-                                child: Container(
-                                  width: 120,
-                                  height: 120,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: CachedNetworkImage(
-                                    imageUrl: Config.server + "/signlearn/assets/category/C" + categoryList[index].categoryId.toString() + ".jpg",
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(15, 15, 15, 0),
+                            child: Container(
+                              width: 100,
+                              height: 123.7,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFFFFFFF),
+                                borderRadius: BorderRadius.circular(25),
                               ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                                      child: 
-                                      Text(categoryList[index].categoryTitle.toString(),
-                                        textAlign: TextAlign.start,
-                                        style : const TextStyle(
-                                          fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.w600,
-                                        )
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 400,
-                                      decoration: const BoxDecoration(),
-                                    ),
-                                    Align(
-                                      alignment: const AlignmentDirectional(0,0),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                                        child:
-                                          Text(categoryList[index].categoryDescription.toString(),
-                                          maxLines: 2,
-                                          style: const TextStyle(
-                                                fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.normal,
-                                          ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Align(
+                                    alignment: const AlignmentDirectional(-1, 0),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
+                                      child: Container(
+                                        width: 120,
+                                        height: 120,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: const BoxDecoration(shape: BoxShape.circle),
+                                        child: CachedNetworkImage(
+                                          imageUrl: Config.server + "/signlearn/assets/category/C" + categoryList[index].categoryId.toString() + ".jpg",
+                                          fit: BoxFit.contain,
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                            child: Text(categoryList[index].categoryTitle.toString(),
+                                              textAlign: TextAlign.start,
+                                              style: const TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w600,
+                                              )
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 400,
+                                            decoration: const BoxDecoration(),
+                                          ),
+                                          Align(
+                                            alignment: const AlignmentDirectional(0, 0),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                                              child: Text(
+                                                categoryList[index].categoryDescription.toString(),
+                                                maxLines: 2,
+                                                style: const TextStyle(fontFamily: 'Poppins'),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    
-                    )
-                     
-                    );
-                   
-                  },
-                  
+                          ),
+                        )
+                      );
+                    },
                   ),
-                  
                 ),
               ),
-              ),
-              
-            ],
-          )
+            ),
+          ],
+        )
       ),
     );
   }
 
-  void loadCategory () {
+  void loadCategory() {
     http.post(
       Uri.parse(Config.server + "/signlearn/php/load_category.php"),
     ).timeout(
@@ -178,13 +171,12 @@ class _CategoryPageState extends State<CategoryPage> {
     ).then((response) {
       String jsonDataString = response.body.toString();
       var jsondata = jsonDecode(jsonDataString);
-      // var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
         var extractdata = jsondata['data'];
         if (extractdata['category'] != null) {
           categoryList = <Category>[];
           extractdata['category'].forEach((v) {
-            categoryList.add(Category.fromJson(v)); 
+            categoryList.add(Category.fromJson(v));
           });
           setState(() {});
         }
