@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:signlearn/model/question1.dart';
-import 'package:signlearn/page/category_detail_page.dart';
 
 class QuizPage1 extends StatefulWidget {
   final String categoryTitle, categoryId;

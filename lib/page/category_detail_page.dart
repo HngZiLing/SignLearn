@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:signlearn/main.dart';
 import 'package:signlearn/model/word.dart';
 import 'package:signlearn/page/video_page.dart';
 import '../config.dart';

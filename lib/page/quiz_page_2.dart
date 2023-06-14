@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:signlearn/model/question2.dart';
-import 'package:signlearn/page/category_detail_page.dart';
 
 class QuizPage2 extends StatefulWidget {
   final String categoryTitle, categoryId;
@@ -275,7 +274,7 @@ class OptionWidget extends StatelessWidget {
         .toList()
       ),
     );
-    
+
     Widget buildOption(BuildContext context, Option option){
       final color = getColorForOption(option, question);
 
