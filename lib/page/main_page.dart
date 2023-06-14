@@ -51,6 +51,7 @@ class _MainScreenState extends State<MainScreen> {
               Navigator.push(
             context,
             MaterialPageRoute(
+              settings: RouteSettings(name: "/Info"),
               builder: (context) => InfoPage(),
             )
           );

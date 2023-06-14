@@ -67,6 +67,7 @@ class _CategoryPageState extends State<CategoryPage> {
                           onTap: () => {
                             search = categoryList[index].categoryId.toString(),
                             Navigator.push(context, MaterialPageRoute(
+                              settings: RouteSettings(name: "/detail"),
                               builder: (content) => CategoryDetailsPage(
                                 categoryTitle: categoryList[index].categoryTitle.toString(),
                                 categoryId: search

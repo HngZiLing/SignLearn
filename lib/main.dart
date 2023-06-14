@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:signlearn/favourite_provider.dart';
 import 'package:signlearn/config.dart';
+import 'package:signlearn/page/category_detail_page.dart';
 import 'package:signlearn/page/main_page.dart';
 
 void main() {
@@ -96,6 +97,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ChangeNotifierProvider(
       create: (context) => FavouriteProvider(),
       child: MaterialApp(
@@ -104,6 +106,11 @@ class MyApp extends StatelessWidget {
           primarySwatch: Palette.kToDark,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
+        initialRoute: 'mainPage',
+        routes: {
+          ExtractArgumentsScreen.routeName: (context) => const ExtractArgumentsScreen(),
+          // '/detail': (context) => CategoryDetailsPage(categoryTitle: CategoryDetailsPage.categoryTitle, categoryId: categoryId)
+        },
         home: const MainPage(),
       )
     );

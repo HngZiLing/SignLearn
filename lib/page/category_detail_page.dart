@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:signlearn/main.dart';
 import 'package:signlearn/model/word.dart';
 import 'package:signlearn/page/video_page.dart';
 import '../config.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:signlearn/page/category_word_page.dart';
-import 'package:signlearn/page/quiz_page.dart';
+import 'package:signlearn/page/quiz_page_1.dart';
+import 'package:signlearn/page/quiz_page_2.dart';
 
 class CategoryDetailsPage extends StatefulWidget {
   final String categoryId, categoryTitle;
@@ -39,6 +41,8 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    
+
     screenWidth = MediaQuery.of(context).size.width;
     if (screenWidth <= 600) {
       resWidth = screenWidth / 4;
@@ -62,6 +66,12 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
               fontWeight: FontWeight.bold
             )
           ),
+          leading: BackButton(
+          color: Colors.black,
+          onPressed: () => {
+            Navigator.popUntil(context, (route) => route.isFirst),
+            },
+          ), 
           actions: const [],
           centerTitle: true,
           elevation: 5,
@@ -117,12 +127,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(15, 5, 5, 5),
                               child: InkWell(
-                                onTap: () => {Navigator.push(context, MaterialPageRoute(
-                                  builder: (content) => QuizPage(
-                                    categoryTitle: widget.categoryTitle.toString(),
-                                    categoryId: widget.categoryId.toString()
-                                  )
-                                ))},
+                                onTap: () => {navigateQuiz(widget.categoryId)},
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
                                   child: CachedNetworkImage(
@@ -279,6 +284,59 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
     );
   }
 
+  navigateQuiz(String id) {
+  switch (id) {
+    case "1":
+      {Navigator.push(context, MaterialPageRoute(
+        builder: (content) => QuizPage1(
+          categoryTitle: widget.categoryTitle.toString(),
+          categoryId: widget.categoryId.toString()
+          )
+      ));}
+      break;
+    case "2":
+      {Navigator.push(context, MaterialPageRoute(
+        builder: (content) => QuizPage2(
+          categoryTitle: widget.categoryTitle.toString(),
+          categoryId: widget.categoryId.toString()
+          )
+      ));} 
+      break;
+    // case "3":
+    //   {Navigator.push(context, MaterialPageRoute(
+    //     builder: (content) => QuizPage3(
+    //       categoryTitle: widget.categoryTitle.toString(),
+    //       categoryId: widget.categoryId.toString()
+    //       )
+    //   ));} 
+    //   break;
+    // case "4":
+    //   {Navigator.push(context, MaterialPageRoute(
+    //     builder: (content) => QuizPage4(
+    //       categoryTitle: widget.categoryTitle.toString(),
+    //       categoryId: widget.categoryId.toString()
+    //       )
+    //   ));} 
+    //   break;
+    // case "5":
+    //   {Navigator.push(context, MaterialPageRoute(
+    //     builder: (content) => QuizPage5(
+    //       categoryTitle: widget.categoryTitle.toString(),
+    //       categoryId: widget.categoryId.toString()
+    //       )
+    //   ));} 
+    //   break;
+    // case "6":
+    //   {Navigator.push(context, MaterialPageRoute(
+    //     builder: (content) => QuizPage6(
+    //       categoryTitle: widget.categoryTitle.toString(),
+    //       categoryId: widget.categoryId.toString()
+    //       )
+    //   ));} 
+    //   break;
+  }
+}
+
   void loadWord(String search) {
     http.post(Uri.parse(Config.server + "/signlearn/php/load_word.php"),
       body: {'search': search}).then((response) {
@@ -298,6 +356,26 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
       onTimeout: () {
         return;
       },
+    );
+  }
+}
+
+class ExtractArgumentsScreen extends StatelessWidget {
+  const ExtractArgumentsScreen({super.key});
+
+  static const routeName = '/detail';
+
+  @override
+  Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as CategoryDetailsPage;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(args.categoryTitle),
+      ),
+      body: Center(
+        child: Text(args.categoryId),
+      ),
     );
   }
 }

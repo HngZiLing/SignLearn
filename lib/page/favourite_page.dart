@@ -19,9 +19,28 @@ class _FavouritePageState extends State<FavouritePage> {
   Widget build(BuildContext context) {
     final provider = Provider.of<FavouriteProvider>(context);
     final words = provider.getWord;
-
+    
     return Scaffold(
-      body: SafeArea(
+    body: words.isEmpty
+    ? Center(
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          children: [
+            const Expanded(flex: 1, child: Padding(padding: EdgeInsets.all(15),
+            child: Text("You can click icon on the word page to add it here",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, height: 1.3, fontWeight: FontWeight.bold) ))),
+            Expanded(flex: 9, child: CachedNetworkImage(
+              imageUrl: "${Config.server}/signlearn/assets/instruction.png",
+            )),
+            ],
+        )
+        
+          ),
+         ) 
+                  
+      : SafeArea(
         child: Column(
           children: [
             Expanded(
