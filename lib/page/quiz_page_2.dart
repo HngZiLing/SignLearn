@@ -31,10 +31,10 @@ class _QuizPageState extends State<QuizPage2>{
         backgroundColor: const Color(0xFFACD783),
         automaticallyImplyLeading: true,
         title: Text(widget.categoryTitle.toString(),
-          style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5, fontWeight: FontWeight.bold)
+          style: const TextStyle(fontSize: 20, fontFamily: 'Raleway', height:1.5, fontWeight: FontWeight.bold, color: Colors.white)
         ),
         leading: BackButton(
-          color: Colors.black,
+          color: Colors.white,
           onPressed: () => {
             Navigator.of(context).popUntil(ModalRoute.withName("/detail"))
             },
@@ -186,7 +186,7 @@ class _QuizPageState extends State<QuizPage2>{
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("Your Score",
-                      style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
+                      style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
                       const SizedBox(height: 20),
                       CircleAvatar(
                         radius: 70,
@@ -203,7 +203,7 @@ class _QuizPageState extends State<QuizPage2>{
                                   child:Text(
                             "$score/${questions.length}",
                             textAlign: TextAlign.center,
-                            style: const TextStyle(fontSize: 30),
+                            style: const TextStyle(fontSize: 30, color: Colors.white),
                             ),
                                 )),
                                 Expanded(
@@ -229,12 +229,12 @@ class _QuizPageState extends State<QuizPage2>{
                           ElevatedButton(
                             onPressed: () => Navigator.push(context, MaterialPageRoute(
                               builder: (content) => QuizPage2(categoryTitle: widget.categoryTitle.toString(), categoryId: widget.categoryId.toString()))),
-                            child: const Text("Try Again")
+                            child: const Text("Try Again", style: TextStyle(color: Colors.white))
                           ),
                           const SizedBox(width: 20),
                           ElevatedButton(
                             onPressed:() => Navigator.of(context).popUntil(ModalRoute.withName("/detail")),
-                            child: const Text("Go Back")
+                            child: const Text("Go Back", style: TextStyle(color: Colors.white))
                           ),
                          
                         ],

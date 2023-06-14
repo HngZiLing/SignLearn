@@ -30,7 +30,7 @@ class _FavouritePageState extends State<FavouritePage> {
             const Expanded(flex: 1, child: Padding(padding: EdgeInsets.all(15),
             child: Text("You can click icon on the word page to add it here",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, height: 1.3, fontWeight: FontWeight.bold) ))),
+            style: TextStyle(fontSize: 16, height: 1.3) ))),
             Expanded(flex: 9, child: CachedNetworkImage(
               imageUrl: "${Config.server}/signlearn/assets/instruction.png",
             )),
@@ -68,17 +68,17 @@ class _FavouritePageState extends State<FavouritePage> {
                           child: Column(
                             children: [
                               Expanded(
-                                flex: 8,
+                                flex: 7,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
                                   child: CachedNetworkImage(
-                                    imageUrl: Config.server + "/signlearn/assets/asl/" + word + '.png',
+                                    imageUrl: Config.server + "/signlearn/assets/asl/" + word.replaceAll(" ", "") + '.png',
                                     fit: BoxFit.fitHeight,
                                   ),
                                 ),
                               ),
                               Expanded(
-                                flex: 2,
+                                flex: 3,
                                 child: Padding(
                                   padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                                   child: Row(

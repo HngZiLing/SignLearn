@@ -35,7 +35,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: Stack(alignment: Alignment.center, children: [
         Image.network(
-          Config.server + "/signlearn/assets/background.png",
+          Config.server + "/signlearn/assets/background.jpg",
           fit: BoxFit.cover,
           height: double.infinity,
           width: double.infinity,

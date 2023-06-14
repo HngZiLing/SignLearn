@@ -28,7 +28,7 @@ class Option {
 
 final questions = [
   Question(
-    image: "${Config.server}/signlearn/assets/c1/13.png",
+    image: "${Config.server}/signlearn/assets/c1/quiz/1.png",
     text:
         "Which of the following describes the sign language in the above image?",
     options: [
@@ -39,7 +39,7 @@ final questions = [
     ],
   ),
   Question(
-    image: "${Config.server}/signlearn/assets/c1/1.png",
+    image: "${Config.server}/signlearn/assets/c1/quiz/2.png",
     text:
         "Which of the following describes the sign language in the above image?",
     options: [
@@ -50,7 +50,7 @@ final questions = [
     ],
   ),
   Question(
-    image: "${Config.server}/signlearn/assets/c1/8.png",
+    image: "${Config.server}/signlearn/assets/c1/quiz/3.png",
     text:
         "Which of the following describes the sign language in the above image?",
     options: [
@@ -61,7 +61,7 @@ final questions = [
     ],
   ),
   Question(
-    image: "${Config.server}/signlearn/assets/c1/26.png",
+    image: "${Config.server}/signlearn/assets/c1/quiz/4.png",
     text:
         "Which of the following describes the sign language in the above image?",
     options: [
@@ -72,7 +72,7 @@ final questions = [
     ],
   ),
   Question(
-    image: "${Config.server}/signlearn/assets/c1/16.png",
+    image: "${Config.server}/signlearn/assets/c1/quiz/5.png",
     text:
         "Which of the following describes the sign language in the above image?",
     options: [
@@ -83,40 +83,7 @@ final questions = [
     ],
   ),
   Question(
-    image: "${Config.server}/signlearn/assets/c1/quiz/1.png",
-    text:
-        "Which of the following describes the sign language in the above image?",
-    options: [
-      const Option(text: 'Just', isCorrect: false),
-      const Option(text: 'Gift', isCorrect: false),
-      const Option(text: 'Only', isCorrect: true),
-      const Option(text: 'Blue', isCorrect: false),
-    ],
-  ),
-  Question(
-    image: "${Config.server}/signlearn/assets/c1/quiz/2.png",
-    text:
-        "Which of the following describes the sign language in the above image?",
-    options: [
-      const Option(text: 'One', isCorrect: true),
-      const Option(text: 'Two', isCorrect: false),
-      const Option(text: 'Six', isCorrect: false),
-      const Option(text: 'Ten', isCorrect: false),
-    ],
-  ),
-  Question(
-    image: "${Config.server}/signlearn/assets/c1/quiz/3.png",
-    text:
-        "Which of the following describes the sign language in the above image?",
-    options: [
-      const Option(text: 'Hot', isCorrect: false),
-      const Option(text: 'Air', isCorrect: false),
-      const Option(text: 'Way', isCorrect: true),
-      const Option(text: 'Fan', isCorrect: false),
-    ],
-  ),
-  Question(
-    image: "${Config.server}/signlearn/assets/c1/quiz/4.png",
+    image: "${Config.server}/signlearn/assets/c1/quiz/9.png",
     text:
         "Which of the following describes the sign language in the above image?",
     options: [
@@ -127,7 +94,40 @@ final questions = [
     ],
   ),
   Question(
-    image: "${Config.server}/signlearn/assets/c1/quiz/5.png",
+    image: "${Config.server}/signlearn/assets/c1/quiz/8.png",
+    text:
+        "Which of the following describes the sign language in the above image?",
+    options: [
+      const Option(text: 'Hot', isCorrect: false),
+      const Option(text: 'Air', isCorrect: false),
+      const Option(text: 'Way', isCorrect: true),
+      const Option(text: 'Fan', isCorrect: false),
+    ],
+  ),
+  Question(
+    image: "${Config.server}/signlearn/assets/c1/quiz/7.png",
+    text:
+        "Which of the following describes the sign language in the above image?",
+    options: [
+      const Option(text: 'One', isCorrect: true),
+      const Option(text: 'Two', isCorrect: false),
+      const Option(text: 'Six', isCorrect: false),
+      const Option(text: 'Ten', isCorrect: false),
+    ],
+  ),
+  Question(
+    image: "${Config.server}/signlearn/assets/c1/quiz/6.png",
+    text:
+        "Which of the following describes the sign language in the above image?",
+    options: [
+      const Option(text: 'Just', isCorrect: false),
+      const Option(text: 'Gift', isCorrect: false),
+      const Option(text: 'Only', isCorrect: true),
+      const Option(text: 'Blue', isCorrect: false),
+    ],
+  ),
+  Question(
+    image: "${Config.server}/signlearn/assets/c1/quiz/10.png",
     text:
         "Which of the following describes the sign language in the above image?",
     options: [

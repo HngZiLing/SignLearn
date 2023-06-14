@@ -40,12 +40,12 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: const Text('SignLearn'),
+        title: const Text('SignLearn', style: TextStyle(color: Colors.white),),
         centerTitle: true,
         backgroundColor: const Color(0xFFACD783),
         actions: [
           IconButton(
-            icon: const Icon(Icons.lightbulb),
+            icon: const Icon(Icons.lightbulb, color: Colors.white),
             tooltip: 'SignLearn Info',
             onPressed: () {
               Navigator.push(
@@ -115,9 +115,9 @@ class _MainScreenState extends State<MainScreen> {
 class InfoPage extends StatelessWidget {
   InfoPage({Key? key}) : super(key: key);
   
-  List<String> imageList = ["WikiHow", "BabySignLanguage", "WikiHow"];
-  List<String> titleList = ["Wiki How", "Baby Sign Langauge", "B"];
-  List<String> referenceList = ["Feeling", "Alphabet, Number", "C"];
+  List<String> imageList = ["AksamataStudio", "WikiHow", "BabySignLanguage"];
+  List<String> titleList = ["Aksamata Studio", "Wiki How", "Baby Sign Langauge"];
+  List<String> referenceList = ["Basic, Family, Food and Beverage, Animal", "Feeling", "Number"];
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +126,7 @@ class InfoPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SignLearn'),
+        title: const Text('SignLearn', style: TextStyle(color: Colors.white),),
         centerTitle: true,
         backgroundColor: const Color(0xFFACD783),
         automaticallyImplyLeading: true,
@@ -159,10 +159,10 @@ class InfoPage extends StatelessWidget {
                         CachedNetworkImage(
                           height: height / 3.5,
                           alignment: Alignment.center,
-                          imageUrl: "${Config.server}/signlearn/assets/icon_foreground.png",
+                          imageUrl: "${Config.server}/signlearn/assets/icon.png",
                         ),
                         const SizedBox(height: 10),
-                        const Text("This sign language learning app is called SignLearn because its pronunciation is similar to SILENT, which match to the silent world of people who need sign language. SignLearn will focus on basic and daily expression in American Sign Language, the most widely used sign language.", 
+                        const Text("This sign language learning app is called SignLearn because its pronunciation is similar to SILENT, which match to the silent world of people who need sign language. SignLearn will focus on basic and daily expression in American Sign Language, the most widely used sign language.",
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           fontSize: 15,
@@ -174,8 +174,9 @@ class InfoPage extends StatelessWidget {
                   )
                 ),
               ),
+              const Divider(thickness: 3, color: Color.fromARGB(255, 175, 175, 175), indent: 30, endIndent: 30),
               const Padding(
-                padding: EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(10.0),
                 child: Text("Reference List", 
                   textAlign: TextAlign.start,
                   style: TextStyle(
@@ -189,7 +190,7 @@ class InfoPage extends StatelessWidget {
                   itemCount: 3,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                       child: Container(
                         clipBehavior: Clip.antiAlias,
                         decoration: BoxDecoration(
@@ -206,26 +207,29 @@ class InfoPage extends StatelessWidget {
                               imageUrl: "${Config.server}/signlearn/assets/reference/${imageList[index]}.png",
                             ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(titleList[index],
-                                    textAlign: TextAlign.start,
-                                    style: const TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600,
-                                    )
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text("Category: ${referenceList[index]}",
-                                    maxLines: 2,
-                                    style: const TextStyle(
-                                      fontFamily: 'Poppins'
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(titleList[index],
+                                      textAlign: TextAlign.start,
+                                      style: const TextStyle(
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w600,
+                                      )
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(height: 10),
+                                    Text("Category: ${referenceList[index]}",
+                                      maxLines: 2,
+                                      style: const TextStyle(
+                                        fontFamily: 'Poppins',
+                                        height: 1.5
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             )
                           ],
@@ -237,7 +241,7 @@ class InfoPage extends StatelessWidget {
             ]
           ),
         ),
-          ),
-        );
-      }
+        ),
+      );
+    }
 }

@@ -1,6 +1,11 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:signlearn/model/word.dart';
+import 'package:signlearn/page/quiz_page_3.dart';
+import 'package:signlearn/page/quiz_page_4.dart';
+import 'package:signlearn/page/quiz_page_5.dart';
+import 'package:signlearn/page/quiz_page_6.dart';
+import 'package:signlearn/page/quiz_page_7.dart';
 import 'package:signlearn/page/video_page.dart';
 import '../config.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +41,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
   final _unfocusNode = FocusNode();
   List<Word> wordList = <Word>[];
   late double screenWidth = 0.0, resWidth = 0.0;
-  String titlecenter = "Loading word...";
+  String titlecenter = "";
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +67,12 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
               fontSize: 20,
               fontFamily: 'Raleway',
               height: 1.5,
-              fontWeight: FontWeight.bold
+              fontWeight: FontWeight.bold,
+              color: Colors.white
             )
           ),
           leading: BackButton(
-          color: Colors.black,
+          color: Colors.white,
           onPressed: () => {
             Navigator.popUntil(context, (route) => route.isFirst),
             },
@@ -82,14 +88,13 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
             child: Text(
               titlecenter,
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 18,
                 fontFamily: 'Raleway',
                 height: 1.5,
                 fontWeight: FontWeight.bold
-              ),
             ),
           ),
-        ) 
+        ))
         : SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -301,44 +306,59 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
           )
       ));} 
       break;
-    // case "3":
-    //   {Navigator.push(context, MaterialPageRoute(
-    //     builder: (content) => QuizPage3(
-    //       categoryTitle: widget.categoryTitle.toString(),
-    //       categoryId: widget.categoryId.toString()
-    //       )
-    //   ));} 
-    //   break;
-    // case "4":
-    //   {Navigator.push(context, MaterialPageRoute(
-    //     builder: (content) => QuizPage4(
-    //       categoryTitle: widget.categoryTitle.toString(),
-    //       categoryId: widget.categoryId.toString()
-    //       )
-    //   ));} 
-    //   break;
-    // case "5":
-    //   {Navigator.push(context, MaterialPageRoute(
-    //     builder: (content) => QuizPage5(
-    //       categoryTitle: widget.categoryTitle.toString(),
-    //       categoryId: widget.categoryId.toString()
-    //       )
-    //   ));} 
-    //   break;
-    // case "6":
-    //   {Navigator.push(context, MaterialPageRoute(
-    //     builder: (content) => QuizPage6(
-    //       categoryTitle: widget.categoryTitle.toString(),
-    //       categoryId: widget.categoryId.toString()
-    //       )
-    //   ));} 
-    //   break;
+    case "3":
+      {Navigator.push(context, MaterialPageRoute(
+        builder: (content) => QuizPage3(
+          categoryTitle: widget.categoryTitle.toString(),
+          categoryId: widget.categoryId.toString()
+          )
+      ));} 
+      break;
+    case "4":
+      {Navigator.push(context, MaterialPageRoute(
+        builder: (content) => QuizPage4(
+          categoryTitle: widget.categoryTitle.toString(),
+          categoryId: widget.categoryId.toString()
+          )
+      ));} 
+      break;
+    case "5":
+      {Navigator.push(context, MaterialPageRoute(
+        builder: (content) => QuizPage5(
+          categoryTitle: widget.categoryTitle.toString(),
+          categoryId: widget.categoryId.toString()
+          )
+      ));} 
+      break;
+    case "6":
+      {Navigator.push(context, MaterialPageRoute(
+        builder: (content) => QuizPage6(
+          categoryTitle: widget.categoryTitle.toString(),
+          categoryId: widget.categoryId.toString()
+          )
+      ));} 
+      break;
+    case "7":
+      {Navigator.push(context, MaterialPageRoute(
+        builder: (content) => QuizPage7(
+          categoryTitle: widget.categoryTitle.toString(),
+          categoryId: widget.categoryId.toString()
+          )
+      ));} 
+      break;
   }
 }
 
   void loadWord(String search) {
     http.post(Uri.parse(Config.server + "/signlearn/php/load_word.php"),
-      body: {'search': search}).then((response) {
+      body: {'search': search})
+      .timeout(
+      const Duration(seconds: 60),
+      onTimeout: () {
+        titlecenter = "Timeout Please retry again later";
+        return http.Response('Error', 408);
+      },
+    ).then((response) {
       var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
         var extractdata = jsondata['data'];
@@ -350,12 +370,10 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
           setState(() {});
         }
       }
-    }).timeout(
-      const Duration(seconds: 60),
-      onTimeout: () {
-        return;
-      },
-    );
+      else {
+        titlecenter = "Sorry, there are no words at the moment, we will add words as soon as possible";
+      }
+    });
   }
 }
 

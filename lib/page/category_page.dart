@@ -120,7 +120,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                             ),
                                           ),
                                           Container(
-                                            width: 400,
+                                            height: 10,
                                             decoration: const BoxDecoration(),
                                           ),
                                           Align(
@@ -130,7 +130,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                               child: Text(
                                                 categoryList[index].categoryDescription.toString(),
                                                 maxLines: 2,
-                                                style: const TextStyle(fontFamily: 'Poppins'),
+                                                style: const TextStyle(fontFamily: 'Poppins', height: 1.5),
                                               ),
                                             ),
                                           ),
@@ -182,7 +182,7 @@ class _CategoryPageState extends State<CategoryPage> {
           setState(() {});
         }
       } else {
-        titlecenter = "Category is Empty 😞 ";
+        titlecenter = "Sorry, there are no words at the moment, we will add words as soon as possible";
         setState(() {});
       }
     });
