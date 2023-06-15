@@ -60,6 +60,7 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
         Container(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
           alignment: Alignment.bottomCenter,
           child: const Text("Signlearn 1.0 @ 2023",
             textAlign: TextAlign.center,

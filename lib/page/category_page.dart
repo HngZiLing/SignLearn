@@ -18,7 +18,7 @@ class _CategoryPageState extends State<CategoryPage> {
   final _unfocusNode = FocusNode();
   List<Category> categoryList = <Category>[];
   List wordList = [];
-  String titlecenter = "Loading category";
+  String titlecenter = "";
   String search = "";
 
   @override

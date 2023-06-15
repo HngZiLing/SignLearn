@@ -88,7 +88,7 @@ class _QuizPageState extends State<QuizPage1>{
             const SizedBox(height: 10),
             Expanded(
               flex: 1,
-              child: isLocked ? buildElevatedButton() : const SizedBox.shrink(),
+              child: isLocked ? Center(child: Container(height: 50, child: buildElevatedButton())) : const SizedBox.shrink(),
             ),
             const SizedBox(height: 10)
           ],
@@ -247,7 +247,8 @@ style: const TextStyle(
         }
       }, 
       child: Text(
-        questionNumber < questions.length ? 'Next' : 'See the Result'
+        questionNumber < questions.length ? 'Next' : 'See the Result',
+        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
       )
     );
   }
