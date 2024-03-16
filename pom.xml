@@ -1,7 +1,0 @@
-<dependencies>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-reflect</artifactId>
-            <version>1.7.10</version>
-        </dependency>
-    </dependencies>
