@@ -13,11 +13,12 @@ There is no need to be concerned about any security issues because the applicati
 
 ## Features and interfaces
 
-|Feature|Interface|
-|--|--|
-|**Category**<br>To allow users to learn by the topics||
-|**Dictionary**<br>To look up specific words directly|<img src="images/output1.png" width='400px'>|
-|**Video**||
-|**Quiz**||
-|**Save list**||
-|**Introduction and reference**||
+|Feature|
+|--|
+|**Category**<br>To allow users to learn by the topics<br><img src="image/Category.png" height='400px'><img src="image/CategoryDetails.png" height='400px'>|
+|**Dictionary**<br>To look up specific words directly<br><img src="image/Dictionary.png" height='400px'>|
+|**Teaching**<br><img src="image/Teaching.png" height='400px'>|
+|**Video**<br><img src="image/Video.png" height='400px'>|
+|**Quiz**<br><img src="image/Quiz.png" height='400px'>|
+|**Save list**<br><img src="image/SaveList.png" height='400px'>|
+|**Introduction and reference**<br><img src="image/Introduction.png" height='400px'>|
