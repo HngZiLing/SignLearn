@@ -2,14 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:signlearn/model/question1.dart';
 
-class QuizPage1 extends StatefulWidget {
+class QuizPage extends StatefulWidget {
   final String categoryTitle, categoryId;
-  const QuizPage1({Key? key, required this.categoryTitle, required this.categoryId}) : super(key: key);
+  const QuizPage({Key? key, required this.categoryTitle, required this.categoryId}) : super(key: key);
   @override
-  State<QuizPage1> createState() => _QuizPageState();
+  State<QuizPage> createState() => _QuizPageState();
 }
 
-class _QuizPageState extends State<QuizPage1>{
+class _QuizPageState extends State<quizPage>{
   int questionNumber = 1;
   late PageController pageController;
   int score = 0;
@@ -227,7 +227,7 @@ style: const TextStyle(
                   children: [
                           ElevatedButton(
                             onPressed: () => Navigator.push(context, MaterialPageRoute(
-                              builder: (content) => QuizPage1(categoryTitle: widget.categoryTitle.toString(), categoryId: widget.categoryId.toString()))),
+                              builder: (content) => quizPage(categoryTitle: widget.categoryTitle.toString(), categoryId: widget.categoryId.toString()))),
                             child: const Text("Try Again", style: TextStyle(color: Colors.white),)
                           ),
                           const SizedBox(width: 20),
